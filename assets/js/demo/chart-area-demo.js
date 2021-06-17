@@ -29,6 +29,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+const a = [0, 10000, 5000, 15000, 10000, 20000, 15000, 2000, 20000, 30000, 25000, 40000]; 
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -46,7 +47,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: a,
     }],
   },
   options: {
@@ -78,7 +79,7 @@ var myLineChart = new Chart(ctx, {
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return 'Rp' + number_format(value);
           }
         },
         gridLines: {
@@ -110,7 +111,7 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': Rp' + number_format(tooltipItem.yLabel);
         }
       }
     }

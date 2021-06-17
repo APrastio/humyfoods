@@ -18,7 +18,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link pb-0" href="index.html">
+        <a class="nav-link pb-0" href="<?=base_url("main/admin")?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -26,18 +26,25 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link pb-0 collapsed" href="#">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="far fa-file"></i>
           <span>Order</span>
         </a>
         
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?=base_url("produk/listproduk")?>" >
-          <i class="fas fa-fw fa-wrench"></i>
+        <a class="nav-link pb-0 collapsed" href="<?=base_url("produk/listproduk")?>">
+          <i class="fas fa-shopping-cart"></i>
           <span>Produk</span>
-        </a>
+        </a>  
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  collapsed" href="#">
+          <i class="fas fa-users"></i>
+          <span>Users</span>
+        </a>  
       </li>
 
       <!-- Divider -->
