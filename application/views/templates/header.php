@@ -26,7 +26,7 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top " style="background-color: #FF0090;">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top " style="background-color: #FF0090;"> <?php //FF0090?>
     <div class="container">
       <a class="navbar-brand" href="#">
         <img src="<?=base_url('assets/')?>img/logo.png" alt="Humyfoods" width="60">
@@ -50,39 +50,40 @@
             <a class="nav-link font-weight-bold" href="#">About</a>
           </li>
         </ul>
-        <a href="<?=base_url("ShopingChart/viewchart")?>" class="nav-link text-white"><i class="fas fa-shopping-cart"></i> My Cart (<span>12</span>)</a>
+        <a href="<?=base_url("ShopingChart/viewchart")?>" class="nav-link text-white font-weight-bold"><i class="fas fa-shopping-cart "></i> My Cart (<span>12</span>)</a>
+            
+    <?php if($this->session->userdata('email')):?>
+      <!-- Nav Item - User Information -->
+      
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 text-white d-lg-inline small  font-weight-bold"><?=$nama?></span>
+                  <img class="img-profile rounded-circle" src="<?=base_url('assets/')?>img/logo.png" width='60' alt='profile'>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Settings
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Activity Log
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="<?=base_url("auth/logout")?>">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                  </a>
+                </div>  
+      <?else:?>
+        <a href="<?=base_url("auth")?>" class="nav-link text-white font-weight-bold"><i class="fas fa-sign-in-alt"></i> Login </a>
+            <?php endif;?>
+
       </div>
     </div>
-    <?php $a=2;?>
-    <?php if($a==1):?>
-    <a href="<?=base_url("ShopingChart/viewchart")?>" class="nav-link text-white"><i class="fas fa-user"></i> Login </a>
-    <?else:?>
-    <!-- Nav Item - User Information -->
-    
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>  
-            <?php endif;?>
   </nav>
   <!-- Akhir Navbar -->

@@ -14,7 +14,7 @@
               <a href="" class="btn btn-warning text-white">Get It Now</a>
             </div>
             <div class="col-3 col-sm-6 col-md-4 col-lg-4 d-none d-sm-block offset-1">
-              <img src="<?=base_url('assets/')?>img/slideshow/1.png" class="img-fluid">
+              <img src="<?=base_url('assets/')?>img/adimsum.png" class="img-fluid">
             </div>
           </div>
         </div>
