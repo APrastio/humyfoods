@@ -21,12 +21,12 @@
         <div class="carousel-item">
           <div class="row pt-5 justify-content-center">
             <div class="col-9 col-sm-4 col-md-6 col-lg-5">
-              <h1 class="mb-4">Spesial Eid Lebaran</h1>
-              <p class="mb-4">Jadikan hari pertama lebaranmu meriah dan memorable</p>
+              <h1 class="mb-4">Dimsum Enak</h1>
+              <p class="mb-4">Jadikan hari pertama lebaranmu meriah dan memorable dengan dimsum yang enak dan halal tanpa pengawet</p>
               <a href="" class="btn btn-warning text-white">Get It Now</a>
             </div>
             <div class="col-3 col-sm-6 col-md-4 col-lg-4 d-none d-sm-block offset-1">
-              <img src="img/slideshow/1.png" class="img-fluid">
+              <img src="<?=base_url('assets/')?>img/adimsum.png" class="img-fluid">
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
     <div class="container">
       <div class="row mb-3">
         <div class="col">
-          <h3>Special Eid </h3>
+          <h3>Produk Terpopuler</h3>
         </div>
         <div class="col-sm-2">
         <a href="<?=base_url('main/catalog')?>" class="badge "><h5> Lihat Catalog <i class="fas fa-chevron-right"></i></h5></a>

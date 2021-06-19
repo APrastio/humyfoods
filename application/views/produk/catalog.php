@@ -30,22 +30,22 @@
 <section class="features bg-light p-5">
     <div class="container">
       <div class="row">
-      <?php  for($i=1;$i<=12;$i++):?>
+      <?php  foreach($produk as $p):?>
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
           <figure class="figure">
             <div class="figure-img">
-              <img src="<?=base_url('assets/')?>img/adimsum.png" class="figure-img img-fluid">
-              <a href="<?=base_url('main/produk')?>" class="d-flex justify-content-center">
-                <img src="<?=base_url('assets/')?>img/detail.png" class="align-self-center">
+              <img src="<?=base_url('assets/img/produk/').$p['poto']?>" class="figure-img img-fluid">
+              <a href="<?=base_url('produk/produkdetail/'. $p['produkid'])?>" class="d-flex justify-content-center">
+                <img src="<?=base_url('assets/img/')?>detail.png" class="align-self-center">
               </a>
             </div>
             <figcaption class="figure-caption text-center">
-              <h5>Jeans Pubb</h5>
-              <p>IDR 192.300</p>
+              <h5><?=$p['nama']?></h5>
+              <p>IDR <?=number_format($p["harga"], 2, ",", ".");?></p>
             </figcaption>
           </figure>
         </div>
-        <?php endfor;?>
+        <?php endforeach;?>
         
       </div>
     </div>

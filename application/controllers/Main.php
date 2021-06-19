@@ -13,14 +13,14 @@ class Main extends CI_Controller {
 	public function catalog()
 	{
 		
+		$data['produk']=$this->db->get('produk')->result_array();
 		$this->load->view('templates/header');
-		$this->load->view('produk/catalog');
+		$this->load->view('produk/catalog',$data);
 		$this->load->view('templates/footer');
 	}
 
 	public function admin()
 	{
-		
 		$this->load->view('templates/headeradmin');
 		$this->load->view('templates/sidebar');
 		$this->load->view('templates/topbar');

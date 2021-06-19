@@ -11,7 +11,7 @@ body {
   margin-right: 24px;
   font-weight: 200;
 }
-
+/* 
 .nav-item.active a {
   color: #F9B234 !important;
   font-weight: 600;
@@ -20,12 +20,12 @@ body {
 .nav-link span {
   color: #F9B234;
   font-weight: 600;
-}
+} */
 
 /* Carousel */
 .carousel {
   height: 450px;
-  background-color: #171717;
+  background-color: #171717;/*171717*/
   color: white;
 }
 
