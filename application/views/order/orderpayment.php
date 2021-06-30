@@ -1,0 +1,74 @@
+<div class="card text-center mt-5 ">  
+  <div class="card-body mt-4" style="height:120px;
+  background-image: url(http://localhost/humyfoods/assets/img/head.jpg); 
+  background-size: cover;
+  background-position: 0 -280px;">
+  </div>
+</div>
+
+<section class="features bg-light p-5">
+    <div class="container">
+<!-- card begin -->
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="<?=base_url('order/orderpayment')?>">Belum Dibayar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('order/statuspengiriman')?>">Status Pengiriman</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body ml-5 mt-4">
+    <?php if($order!=null):?>
+    <?php //var_dump($order)?>
+    <?php foreach($order as $o):?>
+      <div class="row mb-2">
+        <div class="col-1">
+          <img src="<?=base_url('assets/img/produk/').$o['poto']?>" width="50" alt="asasas">
+         </div>
+        <div class="col-11">
+          <span><?=$o['namaproduk']?></span>
+        </div>
+      </div>
+    <?php endforeach;?>
+    <div class="row justify-content-end">
+      <div class="col-1">Total : </div>
+      <div class="col-2">Rp. <?=$order[0]['total']?></div>
+    </div>
+    <div class='row mt-4'>
+      <div class="col">
+        <!-- <form action="<?=base_url('order/pesan')?>" method="POST"> -->
+        <?= form_open_multipart('order/pesan'); ?>
+          <span class='d-block'>Masukan Bukti Pemabayaran</span>
+          <input type="file" name="gambar" required>
+          <input type="hidden" name="orderid" value="<?=$order[0]['orderid']?>">
+          <button type="submit" class='btn btn-success d-block mt-2'>Submit Pembayaran</button>
+        </form>
+      </div>
+      <div class="col-3">
+        <form action="<?=base_url('order/batal')?>" method="post">
+          <input type="hidden" name="orderid" value="<?=$order[0]['orderid']?>">
+          <button type="submit" class='btn btn-danger'>Batalkan Pesanan</button>
+        </form>
+      </div>
+    </div>
+    
+    <?php else:?>
+      <div class="text-center">
+        <h5 class="card-title">Belum Ada Pesanan</h5>
+        <a href="<?=base_url('customer/catalog')?>" class="btn btn-primary">Belanja Sekarang</a>
+      </div>
+    <?php endif;?>
+  </div>
+</div>
+
+
+<!-- card end -->
+      <div class="row">
+
+      </div>
+    </div>
+  </section>
+  <!-- Akhir Features -->

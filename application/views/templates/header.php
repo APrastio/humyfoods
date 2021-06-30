@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -40,38 +40,32 @@
           <li class="nav-item ">
             <a class="nav-link font-weight-bold" href="<?=base_url()?>">Home</a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link font-weight-bold" href="#">Category</a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link font-weight-bold" href="#">Produk</a>
+            <a class="nav-link font-weight-bold" href="<?=base_url('customer/catalog')?>">Produk</a>
           </li>
           <li class="nav-item">
             <a class="nav-link font-weight-bold" href="#">About</a>
           </li>
         </ul>
-        <a href="<?=base_url("ShopingChart/viewchart")?>" class="nav-link text-white font-weight-bold"><i class="fas fa-shopping-cart "></i> My Cart (<span>12</span>)</a>
+        <?php if($this->session->userdata('email')===NULL){$chart=[];}?>
+        <a href="<?=base_url("ShopingChart/viewchart")?>" class="nav-link text-white font-weight-bold"><i class="fas fa-shopping-cart "></i> My Cart (<span><?=count($chart)?></span>)</a>
             
     <?php if($this->session->userdata('email')):?>
       <!-- Nav Item - User Information -->
       
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 text-white d-lg-inline small  font-weight-bold"><?=$nama?></span>
-                  <img class="img-profile rounded-circle" src="<?=base_url('assets/')?>img/logo.png" width='60' alt='profile'>
+              <span class="mr-2 text-white d-lg-inline small font-weight-bold"><?=$user['nama']?></span>
+                  <img class="img-profile rounded-circle d-none d-lg-inline" width="40" src="<?=base_url('assets/img/customer/'.$user['photo'])?>" width='60' alt='profile'>
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="<?=base_url('customer/profile')?>">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                   </a>
-                  <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Activity Log
+                  <a class="dropdown-item" href="<?=base_url('order/orderpayment')?>">
+                    <i class="far fa-file fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Pesanan
                   </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?=base_url("auth/logout")?>">

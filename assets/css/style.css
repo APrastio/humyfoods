@@ -11,16 +11,20 @@ body {
   margin-right: 24px;
   font-weight: 200;
 }
-/* 
+
 .nav-item.active a {
   color: #F9B234 !important;
   font-weight: 600;
 }
+.nav-link{
+  color: #272625;
+  font-weight: 600;
+} 
 
 .nav-link span {
   color: #F9B234;
   font-weight: 600;
-} */
+} 
 
 /* Carousel */
 .carousel {

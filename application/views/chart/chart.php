@@ -1,4 +1,4 @@
-
+  
   <div class="container cart-header pt-5">
     <div class="row mt-5 text-center">
       <div class="col">
@@ -18,130 +18,58 @@
     </nav>
   </div>
 
-
+<?php if($chartitem):?>
   <!-- Checkout -->
   <section class="checkout">
     <div class="container">
       <div class="row justify-content-between" style="margin-bottom: 100px;">
         <div class="col-lg-6">
           <h4 class="mb-4">Your Items</h4>
+          <form action="<?=base_url('shoppingchart/editchart')?>" method="post">
+          <?php foreach($chartitem as $ci):?>
           <div class="row mb-4">
             <div class="col-2">
-              <img src="<?=base_url('assets/')?>img/adimsum.png" width="70px" height="70px">
+              <img src="<?=base_url('assets/img/produk/'.$ci['poto'])?>" width="70px" height="70px">
             </div>
             <div class="col-4">
-              <h5 class="m-0">Dimsum</h5>
-              <p class="m-0" style="color:#B7B7B7;">IDR 20.000</p>
+              <h5 class="m-0"><?=$ci['nama']?></h5>
+              <p class="m-0" style="color:#B7B7B7;">IDR <?=number_format($ci['harga'], 2, ",", ".");?></p>
             </div>
             <div class="col-4">
-              <button type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
-                  class="fas fa-minus-circle"></i></button>
-              <span class="mx-2">20</span>
-              <button type="button" class="btn btn-sm btn-success" style="color: white;"><i
-                  class="fas fa-plus-circle"></i></button>
+              <a href="<?=base_url('ShopingChart/editchart/'.$ci['chartid'].'?id=2')?>" type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
+                  class="fas fa-minus-circle"></i></a>
+              <span class="mx-2"><?=$ci['qty']?></span>
+              <a href="<?=base_url('ShopingChart/editchart/'.$ci['chartid'].'?id=1')?>" type="button" class="btn btn-sm btn-success" style="color: white;"><i
+                  class="fas fa-plus-circle"></i></a>
             </div>
             <div class="col-2 text-right">
-              <button type="button" class="btn btn-sm btn-danger" style="color: white;"><i
-                  class="fas fa-times-circle"></i></button>
+              <a href="<?=base_url('ShopingChart/deletechart/'.$ci['chartid'])?>"  class="btn btn-sm btn-danger" style="color: white;"><i
+                  class="fas fa-times-circle"></i></a>
             </div>
           </div>
-          <div class="row mb-4">
-            <div class="col-2">
-              <img src="<?=base_url('assets/')?>img/adimsum.png" width="70px" height="70px">
-            </div>
-            <div class="col-4">
-              <h5 class="m-0">Dimsum</h5>
-              <p class="m-0" style="color:#B7B7B7;">IDR 20.000</p>
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
-                  class="fas fa-minus-circle"></i></button>
-              <span class="mx-2">20</span>
-              <button type="button" class="btn btn-sm btn-success" style="color: white;"><i
-                  class="fas fa-plus-circle"></i></button>
-            </div>
-            <div class="col-2 text-right">
-              <button type="button" class="btn btn-sm btn-danger" style="color: white;"><i
-                  class="fas fa-times-circle"></i></button>
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-2">
-              <img src="<?=base_url('assets/')?>img/adimsum.png" width="70px" height="70px">
-            </div>
-            <div class="col-4">
-              <h5 class="m-0">Dimsum</h5>
-              <p class="m-0" style="color:#B7B7B7;">IDR 20.000</p>
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
-                  class="fas fa-minus-circle"></i></button>
-              <span class="mx-2">20</span>
-              <button type="button" class="btn btn-sm btn-success" style="color: white;"><i
-                  class="fas fa-plus-circle"></i></button>
-            </div>
-            <div class="col-2 text-right">
-              <button type="button" class="btn btn-sm btn-danger" style="color: white;"><i
-                  class="fas fa-times-circle"></i></button>
-            </div>
-          </div>
-
+          <?php endforeach;?>
           
+        </form>
+
         </div>
 
         <div class="col-lg-5">
           <div class="card rounded-0 checkout-detail">
             <div class="card-body">
               <h5 class="card-title">Informasi Biaya</h5>
+              <?php foreach($chartitem as $ci):?>
               <div class="row mb-3">
                 <div class="col">
-                  <h6 class="m-0">Dimsum</h6>
-                  <small style="color: #B7B7B7;">2 Items</small>
+                  <h6 class="m-0"><?=$ci['nama']?></h6>
+                  <small style="color: #B7B7B7;"><?=$ci['qty']?> Items</small>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-success">IDR 600.000.000</h6>
+                  <h6 class="m-0 align-self-center text-success">IDR <?=number_format($ci['total'], 2, ",", ".");?></h6>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <h6 class="m-0">Dimsum</h6>
-                  <small style="color: #B7B7B7;">2 Items</small>
-                </div>
-                <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-success">IDR 600.000.000</h6>
-                </div>
-              </div>
-
+              <?php endforeach;?>
               <hr>
-
               <div class="row mb-3">
-                <div class="col">
-                  <h6 class="m-0">Courier</h6>
-                  <small style="color: #B7B7B7;">JNT Express</small>
-                </div>
-                <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-success">IDR 201.000</h6>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
-                  <h6 class="m-0">Tax</h6>
-                  <small style="color: #B7B7B7;">Negara 20%</small>
-                </div>
-                <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-success">IDR 1.799.000</h6>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
-                  <h6 class="m-0">Eid Promo</h6>
-                  <small style="color: #B7B7B7;">10% OFF</small>
-                </div>
-                <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-danger">-IDR 50.000.000</h6>
-                </div>
               </div>
 
               <div class="row mb-3">
@@ -149,42 +77,82 @@
                   <h6 class="m-0">Total Harga</h6>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-primary">IDR 1.520.940.300</h6>
+                  <h6 id='total' class="m-0 align-self-center text-primary">IDR <?=number_format($total["SUM(`total`)"], 2, ",", ".");?></h6>
                 </div>
               </div>
 
             </div>
           </div>
-
-          <div class="row mt-3">
+          <?php if($user['alamat']!=null):?>
+          <form action="<?=base_url('order')?>" method="post">
+          <div class="row mt-3">            
             <div class="col">
-              <button type="button" class="btn btn-block"
-                style="background-color: #EAEAEF; color: #ADADAD;">Cancel</button>
+              <button type="submit" class="btn btn-warning btn-block text-white">Checkout</button>
             </div>
+          </div>
+          </form>
+          <?php else:?>
+          <div class="row mt-3">            
             <div class="col">
-              <button type="button" class="btn btn-warning btn-block text-white" data-toggle="modal"
+              <button type="submit" class="btn btn-warning btn-block text-white" data-toggle="modal"
                 data-target="#checkoutModal">Checkout</button>
             </div>
           </div>
-
+          <?php endif;?>
         </div>
       </div>
     </div>
   </section>
   <!-- Akhir Checkout -->
-
+<?php else:?>
+  <!-- chart 0 -->
+  <div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Keranjang Anda Kosong</h5>
+    <a href="<?=base_url('customer/catalog')?>" class="btn btn-primary">Belanja Sekarang</a>
+  </div>
+</div>
+  <!--  -->
+<?php endif;?>
 
   <!-- Modal -->
   <div class="modal fade checkout-modal-success" id="checkoutModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-body text-center">
-          <img src="<?=base_url('assets/')?>img/cart/sukses_checkout.png" class="mb-5">
-          <h3>Checkout Berhasil</h3>
-          <p>Anda akan mendapatkan barang anda <br> dalam beberapa hari</p>
-          <button type="button" class="btn mt-3" style="background-color: #EAEAEF; color: #ADADAD;"
-            data-dismiss="modal">Home</button>
+        <div class="modal-body">
+          <form action="" method="post">
+            <div class="form-group">
+              <label for="inputAddress">Address</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" id="inputCity">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <select id="inputState" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>...</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="inputZip">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                  Check me out
+                </label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
         </div>
       </div>
     </div>

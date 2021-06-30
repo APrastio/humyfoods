@@ -12,7 +12,7 @@ class Auth extends CI_Controller
     public function index()
     {
         if ($this->session->userdata('email')) {
-            redirect('main');
+            redirect('Customer');
         }
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -43,10 +43,10 @@ class Auth extends CI_Controller
                         'role_id' => $user['roleid']
                     ];
                     $this->session->set_userdata($data);
-                    if ($user['role_id'] == 1) {
+                    if ($user['roleid'] == 1) {
                         redirect('admin');
                     } else {
-                        redirect('main');
+                        redirect('customer');
                     }
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
@@ -71,7 +71,7 @@ class Auth extends CI_Controller
     public function regis()
     {
         if ($this->session->userdata('email')) {
-            redirect('user');
+            redirect('Customer');
         }
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[user.email]', [
@@ -93,11 +93,10 @@ class Auth extends CI_Controller
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'roleid' => 2,
-                'photo' => 'default.jpg',
+                'photo' => 'default.png',
                 'is_active' => 1
             ];
             $this->db->insert('user', $data);
-
             
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
@@ -142,7 +141,7 @@ class Auth extends CI_Controller
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
         you have been logout
         </div>');
-        redirect('main');
+        redirect('customer');
     }
     public function blocked()
     {

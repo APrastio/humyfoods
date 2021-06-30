@@ -24,16 +24,22 @@
         <div class="col-lg-4">
           <h3><?=$produkdetail['nama']?></h3>
           <p class="text-muted">IDR <?=number_format($produkdetail['harga'], 2, ",", ".")?></p>
-          <button type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
+          <button type="button" id="clickme-" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
               class="fas fa-minus-circle"></i></button>
-          <span class="mx-2">1</span>
-          <button type="button" class="btn btn-sm btn-success" style="color: white;"><i
+          <span class="mx-2" id="value">1</span>
+          <button type="button"id="clickme" class="btn btn-sm btn-success" style="color: white;"><i
               class="fas fa-plus-circle"></i></button>
-
+              <form action="<?=base_url('ShopingChart/addchart')?>" method="post">
           <div class="btn-product">
-            <a href="" class="btn btn-warning text-white">Add to Cart</a>
-            <a href="" class="btn" style="background-color: #EAEAEF; color: #ADADAD;">Add to Wishlist</a>
+          <input id="hasil" name="qty" type="hidden" value="1">
+          <?php if($this->session->userdata('email')):?>
+          <input id="hasil" name="userid" type="hidden" value="<?=$user['userid']?>">
+          <?php endif;?>
+          <input id="hasil" name="produkid" type="hidden" value="<?=$produkdetail['produkid']?>">
+            <button  class="btn btn-warning text-white w-50" type="submit">Add to Cart</button>
+            <button class="btn w-50" style="background-color: #EAEAEF; color: #ADADAD;">Add to Wishlist</button>
           </div>
+          </form>
 
           <!-- <div class="designed-by">
             <h5>Designed by</h5>
