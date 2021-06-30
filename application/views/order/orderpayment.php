@@ -22,6 +22,11 @@
   </div>
   <div class="card-body ml-5 mt-4">
     <?php if($order!=null):?>
+      <div class="row mb-2">
+        <p>Harap bayar ke no rekening berikut</p>
+        <p>ovo : 098568976</p>
+        <p>Shoope pay : 0876578776</p>
+      </div>
     <?php //var_dump($order)?>
     <?php foreach($order as $o):?>
       <div class="row mb-2">

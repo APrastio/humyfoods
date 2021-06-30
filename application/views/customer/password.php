@@ -24,26 +24,40 @@
             <a href="<?=base_url("customer/password")?>" class='nav-link'>
                 <i class="fas fa-lock fa-3x"></i></a>
           </li>
-    </div>
-    <div class='text-right mt-2 mr-1'>
-        <li class='nav-item'>
-            <a href="<?=base_url("customer/alamat")?>" class='nav-link'>
-                <i class="fas fa-map-marker-alt fa-3x"></i></a>
-          </li>
-    </div>
+
 </ul>
 </div>
     <div class="col-10">
         <div class="card">
         <div class="card-header">
-            Ubah Paswword
+            Ubah Pasword
         </div>
         <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            <form action="<?=base_url()?>" method="post">
+        <div class="row">
+        <div class="col-lg-6">
+            <?= $this->session->flashdata('pesan'); ?>
+            <form action="<?= base_url('customer/changepassword') ?>" method="POST">
+                <div class="form-group">
+                    <label for="currentpassword">Curren Password</label>
+                    <input type="password" class="form-control" id="currentpassword" name="currentpassword">
+                    <?= form_error('currentpassword', ' <small class="text-danger pl-3">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <label for="newpassword1">New Password</label>
+                    <input type="password" class="form-control" id="newpassword1" name="newpassword1">
+                    <?= form_error('newpassword1', ' <small class="text-danger pl-3">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <label for="newpassword2">Repeat Password</label>
+                    <input type="password" class="form-control" id="newpassword2" name="newpassword2">
+                    <?= form_error('newpassword2', ' <small class="text-danger pl-3">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
             </form>
+        </div>
+    </div>
         </div>
         
         </div>

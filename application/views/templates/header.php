@@ -15,7 +15,8 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:200,400,600&display=swap"
     rel="stylesheet">
-
+    <!-- select css -->
+        <link href='<?=base_url('assets/')?>js/select2/dist/css/select2.min.css' rel='stylesheet' type='text/css'>
   <!-- My CSS -->
   <link rel="stylesheet" href="<?=base_url('assets/')?>css/style.css">
 

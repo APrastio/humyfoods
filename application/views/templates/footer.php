@@ -46,6 +46,9 @@
   <script src="<?=base_url('assets/')?>js/popper.min.js"></script>
   <script src="<?=base_url('assets/')?>js/bootstrap.js"></script>
   <script src="<?=base_url('assets/')?>js/all.js"></script>
+  <!--  -->
+  <script src='<?=base_url('assets/')?>jquery-3.2.1.min.js' type='text/javascript'></script>
+  <script src='<?=base_url('assets/')?>js/select2/dist/js/select2.min.js' type='text/javascript'></script>
   <!-- custome js -->
   <script>
   var button = document.getElementById("clickme"),
@@ -82,6 +85,21 @@ function val() {
   document.getElementById("totalharga").value=parseInt(x)+<?=$total["SUM(`total`)"]?>;
 }
   </script>
+  <script>
+        $(document).ready(function(){
+            
+            // Initialize select2
+            $("#selUser").select2();
+
+            // Read selected option
+            $('#but_read').click(function(){
+                var username = $('#selUser option:selected').text();
+                var userid = $('#selUser').val();
+           
+                $('#result').html("id : " + userid + ", name : " + username);
+            });
+        });
+        </script>
 </body>
 
 </html>
