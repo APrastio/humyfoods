@@ -6,7 +6,6 @@
   </div>
 </div>
 
-
 <!-- Features -->
 <nav class="navbar navbar-light bg-light">
     <div class="container">

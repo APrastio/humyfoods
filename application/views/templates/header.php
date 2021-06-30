@@ -48,7 +48,10 @@
             <a class="nav-link font-weight-bold" href="#">About</a>
           </li>
         </ul>
-        <?php if($this->session->userdata('email')===NULL){$chart=[];}?>
+        <?php 
+        if($this->session->userdata('email')===NULL){
+          $chart=[];
+        }?>
         <a href="<?=base_url("ShopingChart/viewchart")?>" class="nav-link text-white font-weight-bold"><i class="fas fa-shopping-cart "></i> My Cart (<span><?=count($chart)?></span>)</a>
             
     <?php if($this->session->userdata('email')):?>
@@ -74,10 +77,10 @@
                     Logout
                   </a>
                 </div>  
-      <?else:?>
+    <?php else:?>
         <a href="<?=base_url("auth")?>" class="nav-link text-white font-weight-bold"><i class="fas fa-sign-in-alt"></i> Login </a>
-            <?php endif;?>
-
+    <?php endif;?>
+            
       </div>
     </div>
   </nav>
