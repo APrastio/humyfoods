@@ -28,11 +28,22 @@
         <a class="nav-link pb-0 collapsed" data-toggle="collapse" data-target="#collapsePages" href="#">
           <i class="far fa-file"></i>
           <span>Order</span>
+          <?php if($menunggu || $kirim):?>
+          <span class="badge badge-danger badge-counter"><?=$menunggu+$kirim?></span>  
+        <?php endif;?>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?=base_url('admin/listkonfirmasipemesanan')?>">Pesanan Masuk</a>
-            <a class="collapse-item" href="<?=base_url('admin/orderKirim')?>">Kirim Pesanan</a>
+            <a class="collapse-item" href="<?=base_url('admin/listkonfirmasipemesanan')?>">Pesanan Masuk
+              <?php if($menunggu):?>
+              <span class="badge badge-danger badge-counter"><?=$menunggu?></span>
+              <?php endif;?>
+            </a>
+            <a class="collapse-item" href="<?=base_url('admin/orderKirim')?>">Kirim Pesanan
+              <?php if($kirim):?>
+              <span class="badge badge-danger badge-counter"><?=$kirim?></span>
+              <?php endif;?>
+            </a>
             <a class="collapse-item" href="<?=base_url('admin/orderTetrkirim')?>">Pesanan Dikirim</a>
           </div>
         </div>
@@ -46,7 +57,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link  collapsed" href="#">
+        <a class="nav-link  collapsed" href="<?=base_url('admin/userlist')?>">
           <i class="fas fa-users"></i>
           <span>Users</span>
         </a>  

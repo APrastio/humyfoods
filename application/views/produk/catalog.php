@@ -40,7 +40,7 @@
             </div>
             <figcaption class="figure-caption text-center">
               <h5><?=$p['nama']?></h5>
-              <p>IDR <?=number_format($p["harga"], 2, ",", ".");?></p>
+              <p>Rp. <?=number_format($p["harga"], 2, ",", ".");?></p>
             </figcaption>
           </figure>
         </div>

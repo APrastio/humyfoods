@@ -50,7 +50,7 @@ class Auth extends CI_Controller
                     }
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
-                    Wrong password
+                    Password yang anda masukan salah
                     </div>');
                     redirect('auth');
                 }
@@ -65,6 +65,23 @@ class Auth extends CI_Controller
             Email is not registed
           </div>');
             redirect('auth');
+        }
+    }
+
+     public function lupapasswordview()
+    {
+        if ($this->session->userdata('email')) {
+            redirect('Customer');
+        }
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header');
+            $this->load->view('main/lupapassword');
+            $this->load->view('templates/footer');
+        } else {
+            // valid succes
+            $this->_login();
         }
     }
 
@@ -94,13 +111,23 @@ class Auth extends CI_Controller
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'roleid' => 2,
                 'photo' => 'default.png',
-                'is_active' => 1
+                'is_active' => 0
             ];
-            $this->db->insert('user', $data);
+
+            //token
+            $token=base64_encode(random_bytes(32));
+            $usertoken=[
+                'email'=> $this->input->post('email'),
+                'token'=> $token
+            ];
+
+            // $this->db->insert('user', $data);
+            // $this->db->insert('usertoken', $usertoken);
             
+            $this->_sendEmail();
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-            Congratulation! your account has been created please login
+            Selamat! akun anda berhasil dibuat harap cek email anda untuk aktivasi
             </div>');
             redirect('auth');
         }
@@ -109,22 +136,28 @@ class Auth extends CI_Controller
 
     private function _sendEmail()
     {
+        //$token,$tipe
         $config = [
 
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_user' => 'lostjoker310@gmail.com',
-            'smtp_pass' => 'joker12355',
+            'smtp_pass' => 'l0s3r12355',
             'smtp_port' => 465,
             'mailtype' => 'html',
             'charset' => 'utf-8',
             'newline' => "\r\n"
         ];
         $this->load->library('email', $config);
-        $this->email->from('lostjoker310@gmail.com', 'GDI');
+        $this->email->from('lostjoker310@gmail.com','Humyfoods');
         $this->email->to('wersa245@gmail.com');
-        $this->email->subject('Testing');
-        $this->email->message('hello world');
+        $this->email->subject('akun');
+        $this->email->message('hello');
+        // if($tipe=='verify'){
+        // $this->email->subject('Account Verification');    
+        // $this->email->message('Klik link ini untuk verifikasi akun anda : <a href="'.base_url().'auth/verfy?email='.$this->input->post('email').'&token='.$token.'">Activate</a>');    
+        // }
+        
 
         if ($this->email->send()) {
             return true;
@@ -133,6 +166,31 @@ class Auth extends CI_Controller
             die;
         }
     }
+
+    // public function verify(){
+    //     $email=$this->input->get('email');
+    //     $token=$this->input->get('token');
+    //     $this->db->where('email',$email);
+    //     $user=$this->db->get('user')->row_array();
+
+    //     if($user){
+    //         $usertoken=$this->db->get_where('usertoken',['token'=>$token])->row_array();
+    //         if($usertoken){
+    //             $this->db->set('is_active',1);
+    //             $this->db->where('email',$email);
+    //             $this->db->update('user');
+    //             $this->db->delete('usertoken',['email'=> $email]);
+    //         }else{
+    //          $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+    //         Gagal aktivasi token salah
+    //         </div>');   
+    //         }
+    //     }else{
+    //          $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+    //         Gagal aktivasi Email salah
+    //         </div>');
+    //     }
+    // }
 
     public function logout()
     {

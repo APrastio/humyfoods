@@ -17,6 +17,9 @@ class Produk extends CI_Controller {
 			}
 		$this->db->where('produkid',$id);
 		$data['produkdetail']=  $this->db->get('produk')->row_array();
+        $this->db->order_by('nama','DESC');
+        $this->db->limit(3);    
+        $data['produk'] = $this->db->get('produk')->result_array();
 		$this->load->view('templates/header',$data);
 		$this->load->view('produk/produkdetail',$data);
 		$this->load->view('templates/footer');
@@ -24,12 +27,22 @@ class Produk extends CI_Controller {
 	
 	public function addproduk()
 	{
+        //sidebar
+        $this->db->where('status','Diproses');
+        $data['kirim']=$this->db->get('order')->result_array();
+        $this->db->where('status','Menungu Konfirmasi');
+        $data['menunggu']=$this->db->get('order')->result_array();
+        $orders=[
+            'menunggu'=>count($data['menunggu']),
+            'kirim'=>count($data['kirim'])
+        ];
+        //
 		$this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required|trim');
         $this->form_validation->set_rules('harga', 'Harga', 'required|trim');
         $this->form_validation->set_rules('stok', 'Stok', 'required|trim');
         if ($this->form_validation->run() == false) {
 			$this->load->view('templates/headeradmin');
-			$this->load->view('templates/sidebar');
+			$this->load->view('templates/sidebar',$orders);
 			$this->load->view('templates/topbar');
 			$this->load->view('produk/addproduk');
 			$this->load->view('templates/footeradmin');
@@ -37,7 +50,7 @@ class Produk extends CI_Controller {
             $gambar=$_FILES["gambar"];
             if ($gambar) {
                 $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size']     = '2048';//kb
+                $config['max_size']     = '9048';//kb
                 $config['upload_path'] = './assets/img/produk/';
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('gambar')) {
@@ -63,8 +76,18 @@ class Produk extends CI_Controller {
     public function editprodukview($id){
         $this->db->where("produkid",$id);
         $data= $this->db->get('produk')->row_array();
+        //sidebar
+        $this->db->where('status','Diproses');
+        $data['kirim']=$this->db->get('order')->result_array();
+        $this->db->where('status','Menungu Konfirmasi');
+        $data['menunggu']=$this->db->get('order')->result_array();
+        $orders=[
+            'menunggu'=>count($data['menunggu']),
+            'kirim'=>count($data['kirim'])
+        ];
+        //
             $this->load->view('templates/headeradmin');
-            $this->load->view('templates/sidebar');
+            $this->load->view('templates/sidebar',$orders);
             $this->load->view('templates/topbar');
             $this->load->view('produk/editproduk',$data);
             $this->load->view('templates/footeradmin');
@@ -116,9 +139,19 @@ class Produk extends CI_Controller {
 
 	public function listproduk()
 	{
+        //sidebar
+        $this->db->where('status','Diproses');
+        $data['kirim']=$this->db->get('order')->result_array();
+        $this->db->where('status','Menungu Konfirmasi');
+        $data['menunggu']=$this->db->get('order')->result_array();
+        $orders=[
+            'menunggu'=>count($data['menunggu']),
+            'kirim'=>count($data['kirim'])
+        ];
+        //
 		$data['listproduk'] = $this->db->get('produk')->result_array();
 		$this->load->view('templates/headeradmin');
-		$this->load->view('templates/sidebar');
+		$this->load->view('templates/sidebar',$orders);
 		$this->load->view('templates/topbar');
 		$this->load->view('produk/listproduk',$data);
 		$this->load->view('templates/footeradmin');

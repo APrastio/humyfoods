@@ -17,6 +17,8 @@ class ShopingChart extends CI_Controller {
 			//isi chart
 			$this->db->where('userid',$data['user']['userid']);
 			$data['chartitem']=$this->db->get('chartview')->result_array();
+			//kota
+			$data['kota2']=$this->db->get('kota')->result_array();
 			//total belanjaan
 			$this->load->model('ShoppingChartModel', 'chart');
             $data['total'] = $this->chart->getTotal($data['user']['userid']);

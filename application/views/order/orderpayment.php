@@ -23,21 +23,31 @@
   <div class="card-body ml-5 mt-4">
     <?php if($order!=null):?>
       <div class="row mb-2">
-        <p>Harap bayar ke no rekening berikut</p>
-        <p>ovo : 098568976</p>
-        <p>Shoope pay : 0876578776</p>
+        <span>Harap bayar ke salah satu nomor rekening berikut : </span>
       </div>
+      <div class="row mb-2">
+        <span> Bank Mandiri : 15600098615778</span>
+      </div>
+      <div class="row mb-2">
+        <span> OVO : 085711800082</span>
+      </div>
+      <div class="row mb-5">
+        <span>Shoope Pay : 085711800082</span>
+      </div>
+      <span>Pesanan nomor OPH<?=date('dmY', $order[0]['tglorder']).$order[0]['orderid']?></span>
+      <div class="row mb-2 mr-5 border border-1">
     <?php //var_dump($order)?>
     <?php foreach($order as $o):?>
-      <div class="row mb-2">
-        <div class="col-1">
+      
+        <div class="col-1 my-3">
           <img src="<?=base_url('assets/img/produk/').$o['poto']?>" width="50" alt="asasas">
          </div>
-        <div class="col-11">
+        <div class="col-11 my-3">
           <span><?=$o['namaproduk']?></span>
         </div>
-      </div>
+      
     <?php endforeach;?>
+    </div>
     <div class="row justify-content-end">
       <div class="col-1">Total : </div>
       <div class="col-2">Rp. <?=$order[0]['total']?></div>

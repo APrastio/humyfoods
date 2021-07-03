@@ -32,7 +32,7 @@ class Order extends CI_Controller {
 			$this->load->view('order/order',$data);
 			$this->load->view('templates/footer',$data);
 			}else{
-				redirect("customer/alamat");
+				redirect("customer/profile");
 			}
 			}else{
 				redirect("auth");
@@ -78,8 +78,12 @@ class Order extends CI_Controller {
         if($this->session->userdata('email')){
 			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
 			}
+			// $this->db->where('userid',$data['user']['userid']);
+			// $this->db->where('status','Menungu');
+			// $data['menunggu']=$this->db->get('order')->result_array();
 			$this->db->where('userid',$data['user']['userid']);
 			$this->db->where('status','Dikirim');
+			$this->db->or_where('status','Mengungu Konfirmasi');
 			$data['order']=$this->db->get('order')->result_array();
 			$this->load->view('templates/header',$data);
 			$this->load->view('order/statuspengiriman',$data);

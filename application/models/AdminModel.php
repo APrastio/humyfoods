@@ -5,6 +5,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class AdminModel extends CI_Model
 {
+
+    public function getTotalPenjualan(){
+        $query = "SELECT SUM(`qty`) FROM `order`";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getPesan()
     {
         $query = "SELECT `user`.`nama`,`order`.`orderid`,`order`.`userid`,`order`.`qty`

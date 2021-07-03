@@ -73,7 +73,7 @@
       <div class="row">
       <?php  foreach($produk as $p):?>
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-          <figure class="figure">
+          <figure class="figure ">
             <div class="figure-img">
               <img src="<?=base_url('assets/img/produk/').$p['poto']?>" class="figure-img img-fluid">
               <a href="<?=base_url('produk/produkdetail/'. $p['produkid'])?>" class="d-flex justify-content-center">
@@ -82,7 +82,7 @@
             </div>
             <figcaption class="figure text-center">
               <h5><?=$p['nama']?></h5>
-              <p>IDR <?=number_format($p['harga'], 2, ",", ".");?></p>
+              <p>Rp. <?=number_format($p['harga'], 2, ",", ".");?></p>
             </figcaption>
           </figure>
         </div>

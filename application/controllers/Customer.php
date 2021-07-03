@@ -12,7 +12,8 @@ class Customer extends CI_Controller {
 			redirect('admin');
 		}
 		}
-		
+		$this->db->order_by('nama','ASC');
+		$this->db->limit(6);	
 		$data['produk'] = $this->db->get('produk')->result_array();
 		$this->load->view('templates/header',$data);
 		$this->load->view('main/index',$data);
@@ -47,12 +48,14 @@ class Customer extends CI_Controller {
 	{
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$id=$data['user']['userid'];
+        $chart = $this->input->post('chart');
         $nama = $this->input->post('nama');
         $tlp = $this->input->post('tlp');
         $kota = $this->input->post('idkota');
         $alamat = $this->input->post('alamat');
         $kodepos = $this->input->post('kodepos');
-		var_dump($kota);
+
+		
         //cek gamabr
 
         $upload_image = $_FILES['gambar'];
@@ -64,9 +67,9 @@ class Customer extends CI_Controller {
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('gambar')) {
                 $old_image = $data['user']['photo'];
-				// if ($old_image != 'default.jpg') {
-				// 	unlink(FCPATH . 'assets/img/customer/'.$old_image);
-				// }
+				if ($old_image != 'default.jpg') {
+					unlink(FCPATH . 'assets/img/customer/'.$old_image);
+				}
                 $new_image = $this->upload->data('file_name');
                 $this->db->set('photo', $new_image);
             } else {
@@ -82,7 +85,11 @@ class Customer extends CI_Controller {
         $this->db->where('userid', $id);
         $this->db->update('user');
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data Profile Berhasil Diubah</div>');
+        if($chart=='chart'){
+        	redirect('shopingchart/viewchart');
+        }else{
         redirect('customer/profile');	
+    	}
 	}
 
 	public function profileeditview()
@@ -110,16 +117,16 @@ class Customer extends CI_Controller {
 			$this->load->view('templates/footer');
 	}
 
-	public function alamat()
-	{
-		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        if($this->session->userdata('email')){
-			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
-			}
-			$this->load->view('templates/header',$data);
-			$this->load->view('customer/alamat',$data);
-			$this->load->view('templates/footer');
-	}
+	// public function alamat()
+	// {
+	// 	$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+ //        if($this->session->userdata('email')){
+	// 		$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+	// 		}
+	// 		$this->load->view('templates/header',$data);
+	// 		$this->load->view('customer/alamat',$data);
+	// 		$this->load->view('templates/footer');
+	// }
 
 	public function changepassword()
     {

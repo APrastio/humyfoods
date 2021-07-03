@@ -36,7 +36,6 @@
                     <a class="btn btn-success" href="<?= base_url('admin/editTerKirimview/' . $lp['orderid']) ?>">
                     Detail
                     </a>
-                    </a>
                     </td>
                 </tr>
             <?php endforeach;?>

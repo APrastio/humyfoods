@@ -20,14 +20,26 @@
       </li>
     </ul>
   </div>
-  <div class="card-body ml-5 mt-4">
-    <?php $i=1;?>
+  <?php if($order):?>
+  <?php $i=1;?>
     <?php foreach($order as $o):?>
-      <h5 class="card-title">Pesanan nomor OH<?=$i++?></h5>
+  <div class="card-body ml-5 mt-4 mb-4  mr-5 border border-1">
+      <h5 class="card-title">Pesanan nomor OPH<?=date('dmY', $o['tglorder']).$o['orderid']?></h5>
+      <?php if($o['status']=='Dikirim'):?>
       <p>Telah dikirim harap Tunggu dalam beberapa hari,<br>anda dapat melacaknya dengan nomor resi : <?=$o['resi']?></p>
-      <?php endforeach;?>
+      <?php elseif($o['status']=='Mengungu Konfirmasi'):?>
+      <p>Sedang Diproses</p>
+
+      <?php endif;?>
     
   </div>
+<?php endforeach;?> 
+<?php else:?>
+  <div class="text-center my-5">
+        <h5 class="card-title">Belum Ada Pesanan</h5>
+        <a href="<?=base_url('customer/catalog')?>" class="btn btn-primary">Belanja Sekarang</a>
+      </div>
+<?php endif;?>
 </div>
 <!-- card end -->
       <div class="row">

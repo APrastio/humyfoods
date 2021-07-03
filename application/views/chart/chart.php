@@ -33,7 +33,7 @@
             </div>
             <div class="col-4">
               <h5 class="m-0"><?=$ci['nama']?></h5>
-              <p class="m-0" style="color:#B7B7B7;">IDR <?=number_format($ci['harga'], 2, ",", ".");?></p>
+              <p class="m-0" style="color:#B7B7B7;">Rp. <?=number_format($ci['harga'], 2, ",", ".");?></p>
             </div>
             <div class="col-4">
               <a href="<?=base_url('ShopingChart/editchart/'.$ci['chartid'].'?id=2')?>" type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
@@ -64,7 +64,7 @@
                   <small style="color: #B7B7B7;"><?=$ci['qty']?> Items</small>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-success">IDR <?=number_format($ci['total'], 2, ",", ".");?></h6>
+                  <h6 class="m-0 align-self-center text-success">Rp. <?=number_format($ci['total'], 2, ",", ".");?></h6>
                 </div>
               </div>
               <?php endforeach;?>
@@ -77,7 +77,7 @@
                   <h6 class="m-0">Total Harga</h6>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 id='total' class="m-0 align-self-center text-primary">IDR <?=number_format($total["SUM(`total`)"], 2, ",", ".");?></h6>
+                  <h6 id='total' class="m-0 align-self-center text-primary">Rp. <?=number_format($total["SUM(`total`)"], 2, ",", ".");?></h6>
                 </div>
               </div>
 
@@ -121,37 +121,42 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <form action="" method="post">
+          <form action="<?=base_url('customer/profileedit')?>" method="post">
             <div class="form-group">
-              <label for="inputAddress">Address</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              <input type="hidden" name="nama" value="<?=$user['nama']?>">
+              <input type="hidden" name="chart" value="chart">
+              <label for="inputAddress">Alamat</label>
+              <input type="text" name="alamat" class="form-control" id="inputAddress">
+            </div>
+            <div class="form-group">
+              <label for="inputAddress">Nomor telephone</label>
+              <input type="text" name="tlp" class="form-control" id="inputAddress">
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
+              <div class="form-group col-md-4">
+                <label for="inputState" class="d-block">Kota</label>
+               <!--  -->
+               <select name="idkota" id='selUser' class="form-control" required>
+                  <option value='0'>-Pilih kota-</option> 
+                  <?php foreach($kota2 as $k):?>
+                  <?php if($k['idkota'] == $kota['idkota']):?>
+                  <option selected value='<?=$k['idkota']?>'><?=$k['namakota']?></option>          
+                  <?php else:?>
+                  <option value='<?=$k['idkota']?>'><?=$k['namakota']?></option> 
+                  <?php endif;?>
+                  <?php endforeach;?>
+               </select>  
+               <!--  -->
               </div>
               <div class="form-group col-md-4">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group col-md-2">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
-              </div>
+                <label for="inputZip">Kode Pos</label>
+                <input type="text" name="kodepos" class="form-control" id="inputZip"  style="height: 30px;">
+                </div>
             </div>
             <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                  Check me out
-                </label>
-              </div>
+              
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>
       </div>

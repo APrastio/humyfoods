@@ -12,7 +12,7 @@
                      <table class="table table-bordered">
                         <tr>
                             <th>Nama Customer</th>
-                            <td colspan="2"><?=$pesanan[0]['namacustomer']?></td>
+                            <td colspan="2"><?=ucwords($pesanan[0]['namacustomer'])?></td>
                         </tr>
                         <?php foreach($pesanan as $p):?>
                         <tr>
@@ -26,7 +26,7 @@
                         <?php endforeach;?>
                         <tr>
                            <th>Kurir</th>
-                           <td colspan="2"><?=$pesanan[0]['kurir']?></td>
+                           <td colspan="2"><?=strtoupper($pesanan[0]['kurir'])?></td>
                         </tr>
                         <tr>
                            <th>Alamat</th>
@@ -53,13 +53,13 @@
                </div>
             </div>
             <label class='d-block mt-4'>Bukti Pembayaran</label>
-<img src="<?=base_url('assets/img/buktibayar/'.$pesanan[0]['buktipembayaran'])?>" class='border' alt="gagal">
+<img src="<?=base_url('assets/img/buktibayar/'.$pesanan[0]['buktipembayaran'])?>" height='700px' class='border' alt="gagal">
 
 
             <div class="row mt-4 mb-5">
                <div class="col">
                   <a href="<?= base_url('admin/resi/'.$pesanan[0]['orderid']) ?>" class="btn btn-info">
-                     Konfirmasi Pengiriman
+                     Kirim Pesanan
                   </a>
                </div>
             </div>

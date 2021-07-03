@@ -14,6 +14,7 @@
       <table class="table table-bordered" id="dataTable" width="100%" >
         <thead>
           <tr>
+            <th>No</th>
             <th>Nama Produk</th>
             <th>Harga</th>
             <th>Stok</th>
@@ -22,6 +23,7 @@
         </thead>
         <tfoot>
           <tr>
+            <th>No</th>
             <th>Nama</th>
             <th>Harga</th>
             <th>Stok</th>
@@ -29,10 +31,9 @@
           </tr>
         </tfoot>
         <tbody>
-            <?php $a = array(["nama"=>"bakso","harga"=>"100000","stok"=>"12"],
-            ["nama"=>"kadal","harga"=>"100000","stok"=>"12"]);?>
-            <?php foreach($listproduk as $lp):?>
+            <?php $i=1;foreach($listproduk as $lp):?>
                 <tr>
+                    <td><?=$i++?></td>
                     <td><?=$lp["nama"]?></td>
                     <td>Rp.<?=number_format($lp["harga"], 2, ",", ".");?></td>
                     <td><?=$lp["stok"]?></td>

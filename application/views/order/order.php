@@ -44,7 +44,7 @@
             </div>
             <div class="col-4">
               <h5 class="m-0"><?=$ci['nama']?></h5>
-              <p class="m-0" style="color:#B7B7B7;">IDR <?=number_format($ci['harga'], 0, ",", ".");?></p>
+              <p class="m-0" style="color:#B7B7B7;">Rp. <?=number_format($ci['harga'], 0, ",", ".");?></p>
             </div>
             <div class="col-4">
               <span class="mx-2"><?=$ci['qty']?></span>
@@ -67,7 +67,7 @@
                   <small style="color: #B7B7B7;"><?=$ci['qty']?> Items</small>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 class="m-0 align-self-center text-success">IDR <?=number_format($ci['total'], 0, ",", ".");?></h6>
+                  <h6 class="m-0 align-self-center text-success">Rp. <?=number_format($ci['total'], 0, ",", ".");?></h6>
                 </div>
               </div>
               <?php endforeach;?>
@@ -93,7 +93,7 @@
                       <input type="hidden" name="totalharga" id="totalharga" value="">
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 id='hasil' class="m-0 align-self-center text-success">IDR 0</h6>
+                  <h6 id='hasil' class="m-0 align-self-center text-success">Rp. 0</h6>
                 </div>
                 <?php endif;?>
               </div>
@@ -103,7 +103,7 @@
                   <h6 class="m-0">Total Harga</h6>
                 </div>
                 <div class="col d-flex justify-content-end">
-                  <h6 id='total' class="m-0 align-self-center text-primary">IDR <?=number_format($total["SUM(`total`)"], 0, ",", ".");?></h6>
+                  <h6 id='total' class="m-0 align-self-center text-primary">Rp. <?=number_format($total["SUM(`total`)"], 0, ",", ".");?></h6>
                 </div>
               </div>
 
