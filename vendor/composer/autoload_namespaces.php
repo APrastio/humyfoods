@@ -7,4 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'org\\bovigo\\vfs' => array($vendorDir . '/mikey179/vfsstream/src/main/php'),
+    'Net' => array($vendorDir . '/pear/net_smtp', $vendorDir . '/pear/net_socket'),
+    'Mail' => array($vendorDir . '/pear/mail'),
+    'Console' => array($vendorDir . '/pear/console_getopt'),
+    '' => array($vendorDir . '/pear/pear-core-minimal/src'),
 );

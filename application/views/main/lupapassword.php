@@ -17,11 +17,14 @@
             <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Lupa Password </h1>
+                
               </div>
               <h5 class="text-center">Lupa Password anda? tenang masukan saja alamat e-mail anda dibawah kami akan mengirimkan e-mail untuk reset password anda</h3>
-              <form class="user" action="<?=base_url("auth")?>" method="post">
+              <form class="user" action="<?=base_url("auth/lupapasswordview")?>" method="post">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" name="email" value="<?= set_value('email'); ?>" placeholder="Enter Email Address...">
+                <?= $this->session->flashdata('pesan'); ?>
+                  <input type="email" class="form-control form-control-user" name="email" placeholder="Enter Email Address...">
+                  
                   <?= form_error('email', ' <small class="text-danger pl-3">', '</small>') ?>
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">

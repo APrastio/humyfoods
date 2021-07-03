@@ -28,6 +28,7 @@ class Order extends CI_Controller {
 			$data['cek']=$this->db->get('pesanview')->row_array();
 			// var_dump($data['qty'] ["SUM(`qty`)"]);die;
 			$data['kurir']=$this->chart->getKurir($data['qty'] ["SUM(`qty`)"],$data['user']['idkota']);
+			//kurir
 			$this->load->view('templates/header',$data);
 			$this->load->view('order/order',$data);
 			$this->load->view('templates/footer',$data);
@@ -69,8 +70,67 @@ class Order extends CI_Controller {
 		}
 		$this->db->where('userid', $this->input->post('userid'));
         $this->db->delete('shopingchart');
+		$this->_sendEmail();	
 		redirect('order/orderpayment');
 	}
+
+	private function _sendEmail()
+    {
+		$nama=$this->db->get_where('user',['email'=>$this->session->userdata('email')])->row_array();
+        $from = "humyfoodsstore@gmail.com";
+          $to = 'lostjoker310@gmail.com';
+          $host = "ssl://smtp.gmail.com";
+          $port = "465";
+          $username = 'humyfoodsstore@gmail.com';
+          $password = 'j0k3r12355';
+          $subject = "Pesanan";
+          $body = 'Ada Pesanan masuk atas nama '.$nama['nama'].'';
+          $headers = array ('From' => $from, 'To' => $to,'Subject' => $subject,'Content-type' => "text/html");
+          $smtp = Mail::factory('smtp',
+             array ('host' => $host,
+               'port' => $port,
+               'auth' => true,
+               'username' => $username,
+               'password' => $password));
+
+          $mail = $smtp->send($to, $headers, $body);
+
+          if (PEAR::isError($mail)) {
+            echo($mail->getMessage());
+          } else {
+            echo("Message successfully sent!\n");
+          }
+        //$token,$tipe
+        
+        // $config = [
+
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.googlemail.com',
+        //     'smtp_user' => 'lostjoker310@gmail.com',
+        //     'smtp_pass' => 'l0s3r12355',
+        //     'smtp_port' => 465,
+        //     'mailtype' => 'html',
+        //     'charset' => 'utf-8',
+        //     'newline' => "\r\n"
+        // ];
+        // $this->load->library('email', $config);
+        // $this->email->from('lostjoker310@gmail.com','Humyfoods');
+        // $this->email->to('wersa245@gmail.com');
+        // $this->email->subject('akun');
+        // $this->email->message('hello');
+        // if($tipe=='verify'){
+        // $this->email->subject('Account Verification');    
+        // $this->email->message('Klik link ini untuk verifikasi akun anda : <a href="'.base_url().'auth/verfy?email='.$this->input->post('email').'&token='.$token.'">Activate</a>');    
+        // }
+        
+
+        // if ($this->email->send()) {
+        //     return true;
+        // } else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // }
+    }
 	
 	public function statuspengiriman()
 	{

@@ -68,22 +68,7 @@ class Auth extends CI_Controller
         }
     }
 
-     public function lupapasswordview()
-    {
-        if ($this->session->userdata('email')) {
-            redirect('Customer');
-        }
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header');
-            $this->load->view('main/lupapassword');
-            $this->load->view('templates/footer');
-        } else {
-            // valid succes
-            $this->_login();
-        }
-    }
+    
 
     public function regis()
     {
@@ -115,16 +100,16 @@ class Auth extends CI_Controller
             ];
 
             //token
-            $token=base64_encode(random_bytes(32));
+            $token=urldecode(base64_encode(random_bytes(32)));
             $usertoken=[
                 'email'=> $this->input->post('email'),
                 'token'=> $token
             ];
 
-            // $this->db->insert('user', $data);
-            // $this->db->insert('usertoken', $usertoken);
+            $this->db->insert('user', $data);
+            $this->db->insert('usertoken', $usertoken);
             
-            $this->_sendEmail();
+            $this->_sendEmail($token,'verify');
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
             Selamat! akun anda berhasil dibuat harap cek email anda untuk aktivasi
@@ -133,64 +118,195 @@ class Auth extends CI_Controller
         }
     }
 
-
-    private function _sendEmail()
+    private function _sendEmail($token,$tipe)
     {
-        //$token,$tipe
-        $config = [
+        $from = "humyfoodsstore@gmail.com";
+          $to = $this->input->post('email');
 
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'lostjoker310@gmail.com',
-            'smtp_pass' => 'l0s3r12355',
-            'smtp_port' => 465,
-            'mailtype' => 'html',
-            'charset' => 'utf-8',
-            'newline' => "\r\n"
-        ];
-        $this->load->library('email', $config);
-        $this->email->from('lostjoker310@gmail.com','Humyfoods');
-        $this->email->to('wersa245@gmail.com');
-        $this->email->subject('akun');
-        $this->email->message('hello');
+          $host = "ssl://smtp.gmail.com";
+          $port = "465";
+          $username = 'humyfoodsstore@gmail.com';
+          $password = 'j0k3r12355';
+          if($tipe=='verify'){
+          $subject = "Aktivasi Akun";
+          $body = 'Klik link ini untuk verifikasi akun anda : <a href="'.base_url().'auth/verify?email='.$to.'&token='.$token.'">Activate</a>';
+          }elseif($tipe=='lupa'){
+            $subject = "Reset Password";
+            $body = 'Klik link ini untuk Reset password anda : <a href="'.base_url().'auth/reset?email='.$to.'&token='.$token.'">Activate</a>';
+          }
+          $headers = array ('From' => $from, 'To' => $to,'Subject' => $subject,'Content-type' => "text/html");
+          $smtp = Mail::factory('smtp',
+             array ('host' => $host,
+               'port' => $port,
+               'auth' => true,
+               'username' => $username,
+               'password' => $password));
+
+          $mail = $smtp->send($to, $headers, $body);
+
+          if (PEAR::isError($mail)) {
+            echo($mail->getMessage());
+          } else {
+            echo("Message successfully sent!\n");
+          }
+        //$token,$tipe
+        
+        // $config = [
+
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.googlemail.com',
+        //     'smtp_user' => 'lostjoker310@gmail.com',
+        //     'smtp_pass' => 'l0s3r12355',
+        //     'smtp_port' => 465,
+        //     'mailtype' => 'html',
+        //     'charset' => 'utf-8',
+        //     'newline' => "\r\n"
+        // ];
+        // $this->load->library('email', $config);
+        // $this->email->from('lostjoker310@gmail.com','Humyfoods');
+        // $this->email->to('wersa245@gmail.com');
+        // $this->email->subject('akun');
+        // $this->email->message('hello');
         // if($tipe=='verify'){
         // $this->email->subject('Account Verification');    
         // $this->email->message('Klik link ini untuk verifikasi akun anda : <a href="'.base_url().'auth/verfy?email='.$this->input->post('email').'&token='.$token.'">Activate</a>');    
         // }
         
 
-        if ($this->email->send()) {
-            return true;
-        } else {
-            echo $this->email->print_debugger();
-            die;
+        // if ($this->email->send()) {
+        //     return true;
+        // } else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // }
+    }
+
+    public function verify(){
+        $email=$this->input->get('email');
+        $token=$this->input->get('token');
+        
+        
+        $this->db->where('email',$email);
+        $user=$this->db->get('user')->row_array();
+
+        if($user){
+            $usertoken=$this->db->get_where('usertoken',['token'=>$token])->row_array();
+            if($usertoken){
+                $this->db->set('is_active',1);
+                $this->db->where('email',$email);
+                $this->db->update('user');
+                $this->db->delete('usertoken',['email'=> $email]);
+                $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+            Aktivasi berhasil, Silahkan Login
+            </div>');   
+            redirect('auth');
+            }else{
+             $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            Gagal aktivasi token salah
+            </div>');   
+            redirect('auth');
+            }
+        }else{
+             $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            Gagal aktivasi Email salah
+            </div>');
+            redirect('auth');
+        }
+    }
+    public function lupapasswordview()
+    {
+        if ($this->session->userdata('email')) {
+            redirect('Customer');
+        }
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header');
+            $this->load->view('main/lupapassword');
+            $this->load->view('templates/footer');
+        }else{
+            $email=$this->input->post('email');
+            
+            $user=$this->db->get_where('user',['email'=> $email])->row_array();
+            if($user){
+                if($user['is_active']==1){
+                    $token= urldecode(base64_encode(random_bytes(32)));
+                    $usertoken=[
+                        'email'=>$email,
+                        'token'=>$token
+                    ];
+                    $this->db->insert('usertoken',$usertoken);
+                    $this->_sendEmail($token,'lupa');
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+                    Harap cek email anda untuk reset password
+                </div>');
+                redirect('auth');
+                }else{
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+                    Email belum diaktivasi
+                </div>');
+                redirect('auth/lupapasswordview');
+                }
+
+            }else{
+                
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            Email tidak terdaftar
+          </div>');
+          redirect('auth/lupapasswordview');
+            }
+        }
+    }
+    public function reset(){
+        $email=$this->input->get('email');
+        $token=$this->input->get('token');
+        $user=$this->db->get_where('user',['email'=>$email])->row_array();
+        if($user){
+            $usertoken=$this->db->get_where('usertoken',['token'=>$token]);
+            if($usertoken){
+            $this->session->set_userdata('resetemail',$email);
+            $this->resetpasswordview();
+            }else{
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            Gagal reset Token salah
+            </div>');
+            redirect('auth');
+            }
+        }else{
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            Gagal reset Email salah
+            </div>');
+            redirect('auth');
         }
     }
 
-    // public function verify(){
-    //     $email=$this->input->get('email');
-    //     $token=$this->input->get('token');
-    //     $this->db->where('email',$email);
-    //     $user=$this->db->get('user')->row_array();
+    public function resetpasswordview(){
 
-    //     if($user){
-    //         $usertoken=$this->db->get_where('usertoken',['token'=>$token])->row_array();
-    //         if($usertoken){
-    //             $this->db->set('is_active',1);
-    //             $this->db->where('email',$email);
-    //             $this->db->update('user');
-    //             $this->db->delete('usertoken',['email'=> $email]);
-    //         }else{
-    //          $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
-    //         Gagal aktivasi token salah
-    //         </div>');   
-    //         }
-    //     }else{
-    //          $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
-    //         Gagal aktivasi Email salah
-    //         </div>');
-    //     }
-    // }
+        $this->form_validation->set_rules('password1','password','required|trim|min_length[3]|matches[password2]', [
+            'matches' => 'The Password not match!',
+            'min_length' => 'password to sort'
+        ]);
+        $this->form_validation->set_rules('password2','password','required|trim|min_length[3]|matches[password1]', [
+            'matches' => 'The Password not match!',
+            'min_length' => 'password to sort'
+        ]);
+        if($this->form_validation->run()==false){
+        $this->load->view('templates/header');
+        $this->load->view('main/resetpassword');
+        $this->load->view('templates/footer');
+        }else{
+            $password=password_hash($this->input->post('password1'),PASSWORD_DEFAULT);
+            $email=$this->session->userdata('resetemail');
+            $this->db->set('password',$password);
+            $this->db->where('email',$email);
+            $this->db->update('user');
+            
+            $this->session->unset_userdata('resetemail');
+            $this->session->set_flashdata('pesan', '<div class="alert alert-succes" role="alert">
+            Password berhasil direset harap login
+            </div>');
+            redirect('auth');
+        }
+    }
 
     public function logout()
     {

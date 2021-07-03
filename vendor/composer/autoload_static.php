@@ -41,8 +41,8 @@ class ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -82,6 +82,32 @@ class ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c
                 0 => __DIR__ . '/..' . '/mikey179/vfsstream/src/main/php',
             ),
         ),
+        'N' => 
+        array (
+            'Net' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/net_smtp',
+                1 => __DIR__ . '/..' . '/pear/net_socket',
+            ),
+        ),
+        'M' => 
+        array (
+            'Mail' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/mail',
+            ),
+        ),
+        'C' => 
+        array (
+            'Console' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/console_getopt',
+            ),
+        ),
+    );
+
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/..' . '/pear/pear-core-minimal/src',
     );
 
     public static $classMap = array (
@@ -89,6 +115,7 @@ class ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'PEAR_Exception' => __DIR__ . '/..' . '/pear/pear_exception/PEAR/Exception.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
@@ -559,6 +586,7 @@ class ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c
             $loader->prefixLengthsPsr4 = ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInit1922c947acb1053ef3a3dac59f60e83c::$classMap;
 
         }, null, ClassLoader::class);

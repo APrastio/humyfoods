@@ -35,12 +35,17 @@ class ShoppingChartModel extends CI_Model
             $jenis1='n';
             $jenis2='n';
         }
-        $query = "SELECT `user`.`kota`,`kota`.`namakota`,`biaya`.`biayaid`,`biaya`.`jenis`,`biaya`.`kurir`,`biaya`.`kota`,`biaya`.`harga` 
-        FROM `biaya` 
-        INNER JOIN `user` ON `biaya`.`kota`= `user`.`kota`
-        INNER JOIN `kota` ON `biaya`.`kota`= `kota`.`idkota`
+        // $query = "SELECT `user`.`kota`,`kota`.`namakota`,`biaya`.`biayaid`,`biaya`.`jenis`,`biaya`.`kurir`,`biaya`.`kota`,`biaya`.`harga` 
+        // FROM `biaya` 
+        // INNER JOIN `user` ON `biaya`.`kota`= `user`.`kota`
+        // INNER JOIN `kota` ON `biaya`.`kota`= `kota`.`idkota`
+        // WHERE `biaya`.`jenis`='$jenis1' AND `biaya`.`kota`='$kota'
+        // OR `biaya`.`jenis`='$jenis2' AND `biaya`.`kota`='$kota'";
+
+        $query = "SELECT * FROM `biaya` 
         WHERE `biaya`.`jenis`='$jenis1' AND `biaya`.`kota`='$kota'
         OR `biaya`.`jenis`='$jenis2' AND `biaya`.`kota`='$kota'";
+    
         return $this->db->query($query)->result_array();
     }
 }

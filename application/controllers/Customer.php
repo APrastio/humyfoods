@@ -86,7 +86,7 @@ class Customer extends CI_Controller {
         $this->db->update('user');
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data Profile Berhasil Diubah</div>');
         if($chart=='chart'){
-        	redirect('shopingchart/viewchart');
+        	redirect('ShopingChart/viewchart');
         }else{
         redirect('customer/profile');	
     	}
