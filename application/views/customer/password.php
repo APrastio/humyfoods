@@ -58,7 +58,7 @@
             </form>
         </div>
         <div class="col-6">
-            <a href="">Lupa Password?</a>
+            <a href="<?=base_url('auth/lupapasswordview')?>">Lupa Password?</a>
         </div>
     </div>
         </div>

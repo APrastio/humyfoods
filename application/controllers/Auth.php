@@ -56,13 +56,13 @@ class Auth extends CI_Controller
                 }
             } else {
                 $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
-                This Email is not activated yet
+                Email ini belum melakukan Aktivasi
                 </div>');
                 redirect('auth');
             }
         } else {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
-            Email is not registed
+            Email tidak terdaftar
           </div>');
             redirect('auth');
         }
@@ -301,7 +301,7 @@ class Auth extends CI_Controller
             $this->db->update('user');
             
             $this->session->unset_userdata('resetemail');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-succes" role="alert">
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
             Password berhasil direset harap login
             </div>');
             redirect('auth');

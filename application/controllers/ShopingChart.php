@@ -29,6 +29,7 @@ class ShopingChart extends CI_Controller {
 				redirect("auth");
 			}		
 	}
+
 	public function addchart()
 	{
 		if ($this->session->userdata('email')) {
@@ -47,8 +48,82 @@ class ShopingChart extends CI_Controller {
 			}else{
 				$this->db->insert('shopingchart', $data);
 			}
-			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Menambahkan Produk Baru</div>');
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Produk berhasil dimasukan kedalam keranjang
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>');
 				redirect('produk/produkdetail/'.$data['produkid']);
+		}else{
+			redirect('auth');
+		}
+	}
+
+
+	public function addWishlist()
+	{
+		if ($this->session->userdata('email')) {
+
+			$data = [
+				'userid' => htmlspecialchars($this->input->post('userid', true)),
+				'produkid' => htmlspecialchars($this->input->post('produkid', true))
+			];
+			$this->db->where('userid',$data['userid']);
+			$this->db->where('produkid',$data['produkid']);
+			$cek=$this->db->get('wishlist')->row_array();
+			if ($cek) {
+				redirect('produk/produkdetail/'.$data['produkid']);
+			}else{
+				$this->db->insert('wishlist', $data);
+				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Produk berhasil dimasukan kedalam keranjang
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>');
+			redirect('produk/produkdetail/'.$data['produkid']);
+			}
+			
+		}else{
+			redirect('auth');
+		}
+	}
+
+	public function wishlistview()
+	{
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if($this->session->userdata('email')){
+			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+			$this->db->where('userid',$data['user']['userid']);
+			$data['order']= $this->db->get('wishlitview')->result_array();
+			$this->load->view('templates/header',$data);
+			$this->load->view('chart/wishlist',$data);
+			$this->load->view('templates/footer');
+			}
+	}
+
+	public function hapusWishlist()
+	{
+		if ($this->session->userdata('email')) {
+
+			$data = [
+				'userid' => htmlspecialchars($this->input->post('userid', true)),
+				'produkid' => htmlspecialchars($this->input->post('produkid', true))
+			];
+			$this->db->where('userid',$data['userid']);
+			$this->db->where('produkid',$data['produkid']);
+			$cek=$this->db->get('wishlist')->row_array();
+			if ($cek) {
+				redirect('produk/produkdetail/'.$data['produkid']);
+			}else{
+				$this->db->insert('wishlist', $data);
+				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Produk berhasil dimasukan kedalam keranjang
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>');
+			redirect('produk/produkdetail/'.$data['produkid']);
+			}
+			
 		}else{
 			redirect('auth');
 		}

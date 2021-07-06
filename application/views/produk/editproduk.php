@@ -10,7 +10,7 @@
             <div class="row">
               <div class="col mb-3">
                 <label for="namaproduk">Nama Produk</label>
-                <input type="text" class="form-control" name="namaproduk" id="namaproduk" value="<?=$nama?>">
+                <input type="text" class="form-control" name="namaproduk" id="namaproduk" value="<?=$nama?>" required>
                 <?= form_error('namaproduk', ' <small class="text-danger pl-3">', '</small>') ?>
               </div>
             </div>

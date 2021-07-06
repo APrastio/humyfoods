@@ -143,7 +143,7 @@ class Order extends CI_Controller {
 			// $data['menunggu']=$this->db->get('order')->result_array();
 			$this->db->where('userid',$data['user']['userid']);
 			$this->db->where('status','Dikirim');
-			$this->db->or_where('status','Mengungu Konfirmasi');
+			$this->db->or_where('status','Menungu Konfirmasi');
 			$data['order']=$this->db->get('order')->result_array();
 			$this->load->view('templates/header',$data);
 			$this->load->view('order/statuspengiriman',$data);

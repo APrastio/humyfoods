@@ -71,6 +71,10 @@
                     <i class="far fa-file fa-sm fa-fw mr-2 text-gray-400"></i>
                     Pesanan
                   </a>
+                  <a class="dropdown-item" href="<?=base_url('ShopingChart/wishlistview')?>">
+                    <i class="fas fa-clipboard-check fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Wishlist
+                  </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?=base_url("auth/logout")?>">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

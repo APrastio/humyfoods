@@ -13,6 +13,7 @@
           <div class="col-lg-6 d-none d-lg-block bg-login-image" style='background:#ffff00;'>
               <img src="<?=base_url("assets/img/")?>logo 4x4 cm.png" width="100%" alt="">
           </div>
+          
           <div class="col-lg-6">
             <div class="p-5">
               <div class="text-center">

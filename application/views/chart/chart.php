@@ -13,7 +13,7 @@
     <nav>
       <ol class="breadcrumb bg-transparent pl-0 cart-breadcrumb">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Cart Checkout</li>
+        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
       </ol>
     </nav>
   </div>

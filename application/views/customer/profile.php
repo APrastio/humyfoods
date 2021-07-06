@@ -52,8 +52,12 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title"><?= $user['nama'] ?></h5>
-                    <p class="card-text"><?= $user['email'] ?></p>
-                    <p class="card-text"><?=$user['alamat'].' '.$kota['namakota'].' '.$user['kodepos']?></p>
+                    <p class="card-text"><?=$user['email'] ?></p>
+                    <p class="card-text"><?=$user['alamat']?>
+                    <?php if($kota):?>
+                    <?=' '.$kota['namakota']?>
+                    <?php endif;?>
+                    <?=' '.$user['kodepos']?></p>
                     <p class="card-text"><small class="text-muted"><?=$user['tlp']?></small></p>
                     <a href="<?=base_url('customer/profileeditview')?>">Ubah</a>
                 </div>

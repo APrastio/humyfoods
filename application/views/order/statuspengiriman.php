@@ -27,7 +27,7 @@
       <h5 class="card-title">Pesanan nomor OPH<?=date('dmY', $o['tglorder']).$o['orderid']?></h5>
       <?php if($o['status']=='Dikirim'):?>
       <p>Telah dikirim harap Tunggu dalam beberapa hari,<br>anda dapat melacaknya dengan nomor resi : <?=$o['resi']?></p>
-      <?php elseif($o['status']=='Mengungu Konfirmasi'):?>
+      <?php elseif($o['status']=='Menungu Konfirmasi'):?>
       <p>Sedang Diproses</p>
 
       <?php endif;?>

@@ -12,8 +12,10 @@
 
 
   <!-- Single Product -->
+  
   <section class="single-product">
     <div class="container">
+      <?= $this->session->flashdata('pesan'); ?>
       <div class="row">
         <div class="col-lg-5">
           <figure class="figure">
@@ -33,13 +35,21 @@
           <div class="btn-product">
           <input id="hasil" name="qty" type="hidden" value="1">
           <?php if($this->session->userdata('email')):?>
-          <input id="hasil" name="userid" type="hidden" value="<?=$user['userid']?>">
+          <input  name="userid" type="hidden" value="<?=$user['userid']?>">
           <?php endif;?>
-          <input id="hasil" name="produkid" type="hidden" value="<?=$produkdetail['produkid']?>">
+          <input  name="produkid" type="hidden" value="<?=$produkdetail['produkid']?>">
             <button  class="btn btn-warning text-white w-50" type="submit">Add to Cart</button>
-            <button class="btn w-50" style="background-color: #EAEAEF; color: #ADADAD;">Add to Wishlist</button>
+            
+            </form>
+            <form action="<?=base_url('ShopingChart/addWishlist')?>" method="post">
+          <?php if($this->session->userdata('email')):?>
+          <input name="userid" type="hidden" value="<?=$user['userid']?>">
+          <?php endif;?>
+          <input  name="produkid" type="hidden" value="<?=$produkdetail['produkid']?>">
+          <button class="btn w-50" style="background-color: #EAEAEF; color: #ADADAD;">Add to Wishlist</button>
+            </form>
           </div>
-          </form>
+          
 
           <!-- <div class="designed-by">
             <h5>Designed by</h5>

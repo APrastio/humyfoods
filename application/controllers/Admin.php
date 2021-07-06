@@ -177,6 +177,7 @@ class Admin extends CI_Controller {
 		$this->db->set('status', $status);
         $this->db->where('orderid', $id);
         $this->db->update('order');
+         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Pesanan berhasil dikonfirmasi</div>');
 		redirect('admin/orderKirim');
 	}
 
@@ -189,6 +190,7 @@ class Admin extends CI_Controller {
 		$this->db->set('resi', $resi);
         $this->db->where('orderid', $id);
         $this->db->update('order');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Pesanan berhasil Dikirim</div>');
 			redirect('admin/orderTetrkirim');
 	}
 //inputr resi

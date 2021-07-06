@@ -3,7 +3,7 @@
 <form action="<?=base_url('admin/editkirim')?>" method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1">No Resis</label>
-    <input type="text" class="form-control" name="resi">
+    <input type="text" class="form-control" name="resi" required="">
     <input type="hidden" class="form-control" name="orderid" value="<?=$id?>">
     <input type="hidden" class="form-control" name="status" value="Dikirim">
   </div>
