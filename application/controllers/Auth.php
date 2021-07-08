@@ -74,7 +74,7 @@ class Auth extends CI_Controller
     {
         if ($this->session->userdata('email')) {
             redirect('Customer');
-        }
+        }else{
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email is registed'
@@ -116,6 +116,7 @@ class Auth extends CI_Controller
             </div>');
             redirect('auth');
         }
+    }
     }
 
     private function _sendEmail($token,$tipe)
@@ -280,6 +281,7 @@ class Auth extends CI_Controller
     }
 
     public function resetpasswordview(){
+        if($this->session->userdata('resetemail')){
 
         $this->form_validation->set_rules('password1','password','required|trim|min_length[3]|matches[password2]', [
             'matches' => 'The Password not match!',
@@ -299,13 +301,15 @@ class Auth extends CI_Controller
             $this->db->set('password',$password);
             $this->db->where('email',$email);
             $this->db->update('user');
-            
             $this->session->unset_userdata('resetemail');
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
             Password berhasil direset harap login
             </div>');
             redirect('auth');
         }
+    }else{
+        redirect('customer');
+    }
     }
 
     public function logout()

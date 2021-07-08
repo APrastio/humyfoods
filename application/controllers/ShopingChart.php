@@ -101,7 +101,7 @@ class ShopingChart extends CI_Controller {
 			}
 	}
 
-	public function hapusWishlist()
+	public function deleteWishlist()
 	{
 		if ($this->session->userdata('email')) {
 

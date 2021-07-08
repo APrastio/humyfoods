@@ -48,6 +48,7 @@ class Admin extends CI_Controller {
 //dropdown
 	public function listkonfirmasipemesanan()
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -65,10 +66,14 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/orderadmin',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 
 	public function orderKirim()
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -86,10 +91,14 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/orderadminkirim',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 	
 	public function orderTetrkirim()
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -107,10 +116,14 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/orderadminterkirim',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 //drowpdown detail
 	public function editPesananView($id)
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -128,10 +141,14 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/orderkonfirmdetail',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 	
 	public function editKirimview($id)
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -149,10 +166,14 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/orderkirimdetail',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 
 	public function editTerKirimview($id)
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -170,19 +191,27 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/orderterkirimdetail',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 //input databse
 	public function editpesanan($id,$status)
 	{
+		if ($this->session->userdata('role_id')==1) {
 		$this->db->set('status', $status);
         $this->db->where('orderid', $id);
         $this->db->update('order');
          $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Pesanan berhasil dikonfirmasi</div>');
 		redirect('admin/orderKirim');
+		}else{
+			redirect('customer');
+		}
 	}
 
 	public function editkirim()
 	{
+		if ($this->session->userdata('role_id')==1) {
 		$id=$this->input->post('orderid');
 		$status=$this->input->post('status');
 		$resi=$this->input->post('resi');
@@ -192,10 +221,14 @@ class Admin extends CI_Controller {
         $this->db->update('order');
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Pesanan berhasil Dikirim</div>');
 			redirect('admin/orderTetrkirim');
+		}else{
+			redirect('customer');
+		}
 	}
 //inputr resi
 	public function resi($id)
 	{
+		if ($this->session->userdata('role_id')==1) {
 		//sidebar
 		$this->db->where('status','Diproses');
 		$data['kirim']=$this->db->get('order')->result_array();
@@ -212,11 +245,15 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('order/resi',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 
 
 	public function userlist()
 	{
+		if ($this->session->userdata('role_id')==1) {
 		$data['listuser']=$this->db->get('userview')->result_array();
 		//sidebar
 		$this->db->where('status','Diproses');
@@ -233,6 +270,9 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('main/userlist',$data);
 		$this->load->view('templates/footeradmin');
+	}else{
+		redirect('customer');
+	}
 	}
 
 

@@ -27,6 +27,7 @@ class Produk extends CI_Controller {
 	
 	public function addproduk()
 	{
+        if ($this->session->userdata('role_id')==1) {
         //sidebar
         $this->db->where('status','Diproses');
         $data['kirim']=$this->db->get('order')->result_array();
@@ -57,6 +58,7 @@ class Produk extends CI_Controller {
                     
                  } else {
                     echo $this->upload->display_errors();
+                    die;
                 }
             }
 
@@ -71,9 +73,13 @@ class Produk extends CI_Controller {
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Menambahkan Produk Baru</div>');
             redirect('produk/listproduk');
 		}
+    }else{
+		redirect('customer');
+	}
 	}
  
     public function editprodukview($id){
+        if ($this->session->userdata('role_id')==1) {
         $this->db->where("produkid",$id);
         $data= $this->db->get('produk')->row_array();
         //sidebar
@@ -91,6 +97,9 @@ class Produk extends CI_Controller {
             $this->load->view('templates/topbar');
             $this->load->view('produk/editproduk',$data);
             $this->load->view('templates/footeradmin');
+        }else{
+            redirect('customer');
+        }
     }
 
     public function editproduk(){
@@ -139,6 +148,7 @@ class Produk extends CI_Controller {
 
 	public function listproduk()
 	{
+        if ($this->session->userdata('role_id')==1) {
         //sidebar
         $this->db->where('status','Diproses');
         $data['kirim']=$this->db->get('order')->result_array();
@@ -155,6 +165,9 @@ class Produk extends CI_Controller {
 		$this->load->view('templates/topbar');
 		$this->load->view('produk/listproduk',$data);
 		$this->load->view('templates/footeradmin');
+    }else{
+		redirect('customer');
+	}
 	}
 
 }
