@@ -55,7 +55,7 @@ class Produk extends CI_Controller {
                 $config['upload_path'] = './assets/img/produk/';
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('gambar')) {
-                    
+                    $poto=$this->upload->data("file_name");
                  } else {
                     echo $this->upload->display_errors();
                     die;
@@ -67,7 +67,7 @@ class Produk extends CI_Controller {
                 'harga' => htmlspecialchars($this->input->post('harga', true)),
                 'stok' => htmlspecialchars($this->input->post('stok', true)),
                 'deskripsi' => htmlspecialchars($this->input->post('deskripsi', true)),
-                'poto'=> $this->upload->data("file_name")
+                'poto'=> $poto
             ];
 			$this->db->insert('produk', $data);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Menambahkan Produk Baru</div>');
