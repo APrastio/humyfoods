@@ -90,7 +90,7 @@ class Customer extends CI_Controller {
         }else{
         redirect('customer/profile');	
     	}
-	}
+	}	
 
 	public function profileeditview()
 	{
@@ -131,9 +131,8 @@ class Customer extends CI_Controller {
 	public function changepassword()
     {
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        if($this->session->userdata('email')){
-			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
-			}
+		$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+			
         $this->form_validation->set_rules('currentpassword', 'Current Password', 'required|trim');
         $this->form_validation->set_rules('newpassword1', 'New Password', 'required|trim|min_length[3]|matches[newpassword2]');
         $this->form_validation->set_rules('newpassword2', 'Confirm New Password', 'required|trim|min_length[3]|matches[newpassword1]');
