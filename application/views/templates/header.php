@@ -45,7 +45,7 @@
             <a class="nav-link font-weight-bold" href="<?=base_url('customer/catalog')?>">Produk</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link font-weight-bold" href="#">About</a>
+            <a class="nav-link font-weight-bold" href="<?=base_url('customer/about')?>">About</a>
           </li>
         </ul>
         <?php 

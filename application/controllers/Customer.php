@@ -164,4 +164,18 @@ class Customer extends CI_Controller {
         }
     }
 
+	public function about(){
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		if($this->session->userdata('email')){
+        $data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+		}
+		$this->db->order_by('nama','ASC');
+		$this->db->limit(6);	
+		$data['produk'] = $this->db->get('produk')->result_array();
+		$this->load->view('templates/header',$data);
+		$this->load->view('main/about',$data);
+		$this->load->view('templates/footer');
+		
+	}
+
 }
