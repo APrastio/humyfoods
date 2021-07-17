@@ -14,14 +14,19 @@
   <i class="fas fa-filter"></i>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+  <form action="<?=base_url('Customer/loadRecord')?>" method="post">
+    <input type="hidden" name="as" value="as">
+    <button class="dropdown-item" type="submit">Harga Rendah ke Tinggi</button>
+    </form>
+    <form action="<?=base_url('Customer/loadRecord')?>" method="post">
+    <input type="hidden" name="des" value="des">
+    <button class="dropdown-item" type="submit">Harga Tinggi ke Rendah</button>
+    </form>
   </div>
 </div>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  <form class="form-inline" action="<?=base_url('Customer/loadRecord')?>" method="post">
+    <input class="form-control mr-sm-2" type="search" name='search' value='<?= $search ?>' placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name='submit' value='Submit'>Search</button>
   </form>
   </div>
 </nav>
@@ -47,6 +52,15 @@
         <?php endforeach;?>
         
       </div>
+      <?php if(count($produk) == 0):?>
+      <div class='text-center'>
+      Produk yang and cari tidak ditemukan
+      </div>
+      <?php endif;?>
+      <div style='margin-top: 10px;'>
+   <?= $pagination; ?>
+   </div>
     </div>
+    
   </section>
   <!-- Akhir Features -->

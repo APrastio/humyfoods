@@ -3,6 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Customer extends CI_Controller {
 
+	public function __construct(){
+ 
+		parent::__construct();
+		$this->load->helper('url');
+	
+		// Load session
+		$this->load->library('session');
+	
+		// Load Pagination library
+		$this->load->library('pagination');
+	
+		// Load model
+		$this->load->model('CatalogModel');
+	  }
+
 	public function index()
 	{
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -27,10 +42,26 @@ class Customer extends CI_Controller {
 			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
 		}
 		$data['produk']=$this->db->get('produk')->result_array();
-		$this->load->view('templates/header',$data);
-		$this->load->view('produk/catalog',$data);
-		$this->load->view('templates/footer');
+		$this->session->set_userdata(array("search"=>''));
+		$this->loadRecord();
 	}
+
+	public function sorting($sort){
+
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		if($this->session->userdata('email')){
+			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+		}
+		if($sort=='as'){
+		$this->db->order_by('harga', 'ASC');
+		}elseif($sort=='des'){
+		$this->db->order_by('harga', 'DESC');
+		}
+		$data['produk']=$this->db->get('produk')->result_array();
+		$this->session->set_userdata(array("search"=>''));
+		$this->loadRecord();
+	}
+
 	public function profile()
 	{
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -177,5 +208,86 @@ class Customer extends CI_Controller {
 		$this->load->view('templates/footer');
 		
 	}
+	//search catalog
+
+	public function loadRecord($rowno=0){
+
+		// Search text
+		$search_text = "";
+		if($this->input->post('submit') != NULL ){
+		  $search_text = $this->input->post('search');
+		  $this->session->set_userdata(array("search"=>$search_text));
+		}else{
+		  if($this->session->userdata('search') != NULL){
+			$search_text = $this->session->userdata('search');
+		  }
+		}
+	
+		// Row per page
+		$rowperpage = 12;
+	
+		// Row position
+		if($rowno != 0){
+		  $rowno = ($rowno-1) * $rowperpage;
+		}
+		if($this->input->post('as')=="as"){
+			$sort='ASC';
+		}elseif($this->input->post('as')=="des"){
+			$sort='DESC';
+		}else{
+			$sort='';
+		}
+		// All records count
+		$allcount = $this->CatalogModel->getrecordCount($search_text);
+		// Get records
+		
+		$users_record = $this->CatalogModel->getData($rowno,$rowperpage,$search_text);
+
+		// Pagination Configuration
+		$config['base_url'] = base_url().'/Customer/loadRecord';
+		$config['use_page_numbers'] = TRUE;
+		$config['total_rows'] = $allcount;
+		$config['per_page'] = $rowperpage;
+	
+		// Initialize
+		$this->pagination->initialize($config);
+		 // Membuat Style pagination untuk BootStrap v4
+		 $config['first_link']       = '<<';
+		 $config['last_link']        = '>>';
+		 $config['next_link']        = '>';
+		 $config['prev_link']        = '<';
+		 $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+		 $config['full_tag_close']   = '</ul></nav></div>';
+		 $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+		 $config['num_tag_close']    = '</span></li>';
+		 $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+		 $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+		 $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+		 $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+		 $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+		 $config['prev_tagl_close']  = '</span>Next</li>';
+		 $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+		 $config['first_tagl_close'] = '</span></li>';
+		 $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+		 $config['last_tagl_close']  = '</span></li>';
+ 
+		 $this->pagination->initialize($config);
+		 $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+	 
+		$data['pagination'] = $this->pagination->create_links();
+		$data['produk'] = $users_record;
+		$data['row'] = $rowno;
+		$data['search'] = $search_text;
+		
+		// Load view
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		if($this->session->userdata('email')){
+			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+		}
+		$this->load->view('templates/header',$data);
+		$this->load->view('produk/catalog',$data);
+		$this->load->view('templates/footer');	 
+	  }
+
 
 }

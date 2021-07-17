@@ -108,7 +108,12 @@
         <?php foreach ($produk as $p):?>
         <div class="col-sm-4 ">
           <figure class="figure">
-            <img src="<?= base_url("assets/img/Produk/").$p['poto']?>" class="figure-img img-fluid">
+          <div class="figure-img">
+              <img src="<?=base_url('assets/img/produk/').$p['poto']?>" class="figure-img img-fluid">
+              <a href="<?=base_url('produk/produkdetail/'. $p['produkid'])?>" class="d-flex justify-content-center">
+                <img src="<?=base_url('assets/img/')?>detail.png" class="align-self-center">
+              </a>
+            </div>
             <figcaption class="figure-caption">
               <div class="row">
                 <div class="col">
