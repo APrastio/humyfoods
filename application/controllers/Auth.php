@@ -216,12 +216,13 @@ class Auth extends CI_Controller
     }
     public function lupapasswordview()
     {
-        if ($this->session->userdata('email')) {
-            redirect('Customer');
-        }
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if($this->session->userdata('email')){
+			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+			}
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header');
+            $this->load->view('templates/header',$data);
             $this->load->view('main/lupapassword');
             $this->load->view('templates/footer');
         }else{
@@ -239,8 +240,11 @@ class Auth extends CI_Controller
                     $this->_sendEmail($token,'lupa');
                     $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
                     Harap cek email anda untuk reset password
-                </div>');
-                redirect('auth');
+                </div>'); if($this->session->userdata('email')){
+                    redirect('customer/password');
+                    }else{
+                        redirect('auth');
+                    }
                 }else{
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
                     Email belum diaktivasi
@@ -281,6 +285,10 @@ class Auth extends CI_Controller
     }
 
     public function resetpasswordview(){
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if($this->session->userdata('email')){
+			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
+			}
         if($this->session->userdata('resetemail')){
 
         $this->form_validation->set_rules('password1','password','required|trim|min_length[3]|matches[password2]', [
@@ -292,7 +300,7 @@ class Auth extends CI_Controller
             'min_length' => 'password to sort'
         ]);
         if($this->form_validation->run()==false){
-        $this->load->view('templates/header');
+        $this->load->view('templates/header',$data);
         $this->load->view('main/resetpassword');
         $this->load->view('templates/footer');
         }else{
@@ -305,7 +313,11 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
             Password berhasil direset harap login
             </div>');
-            redirect('auth');
+            if($this->session->userdata('email')){
+                redirect('customer/password');
+                }else{
+                    redirect('auth');
+                }
         }
     }else{
         redirect('customer');

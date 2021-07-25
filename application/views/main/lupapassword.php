@@ -32,12 +32,14 @@
                 </button>
               </form>
               <hr>
+              <?php if(!$this->session->userdata('email')):?>
               <div class="text-center">
                 <a class="small" href="<?=base_url("auth/regis")?>">Create an Account!</a>
               </div>
                <div class="text-center">
                 <a class="small" href="<?=base_url("auth")?>">Already have an account? Login!</a>
               </div>
+              <?php endif;?>
             </div>
           </div>
         </div>

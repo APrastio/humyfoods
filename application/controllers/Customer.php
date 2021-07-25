@@ -64,6 +64,8 @@ class Customer extends CI_Controller {
 
 	public function profile()
 	{
+		if ($this->session->userdata('email')) {
+            
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if($this->session->userdata('email')){
 			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
@@ -73,6 +75,10 @@ class Customer extends CI_Controller {
 			$this->load->view('templates/header',$data);
 			$this->load->view('customer/profile',$data);
 			$this->load->view('templates/footer');
+			
+        }else{
+			redirect('Customer');
+		}
 	}
 
 	public function profileedit()
@@ -128,13 +134,16 @@ class Customer extends CI_Controller {
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if($this->session->userdata('email')){
 			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
-			}
+			
 			$this->db->where('idkota',$data['user']['kota']);
 			$data['kota']=$this->db->get('kota')->row_array();
 			$data['kota2']=$this->db->get('kota')->result_array();
 			$this->load->view('templates/header',$data);
 			$this->load->view('customer/profileedit',$data);
 			$this->load->view('templates/footer');
+		}else{
+			redirect('customer');
+		}
 	}
 
 	public function password()
@@ -142,10 +151,13 @@ class Customer extends CI_Controller {
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if($this->session->userdata('email')){
 			$data['chart'] = $this->db->select('qty')->get_where('shopingchart', ['userid'=>$data['user']['userid']])->result_array();
-			}
+			
 			$this->load->view('templates/header',$data);
 			$this->load->view('customer/password',$data);
 			$this->load->view('templates/footer');
+		}else{
+			redirect('customer');
+		}
 	}
 
 	// public function alamat()
