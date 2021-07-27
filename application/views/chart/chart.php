@@ -28,14 +28,14 @@
           <form action="<?=base_url('shoppingchart/editchart')?>" method="post">
           <?php foreach($chartitem as $ci):?>
           <div class="row mb-4">
-            <div class="col-2">
+            <div class="col-3 col-lg-2">
               <img src="<?=base_url('assets/img/produk/'.$ci['poto'])?>" width="70px" height="70px">
             </div>
             <div class="col-4">
               <h5 class="m-0"><?=$ci['nama']?></h5>
               <p class="m-0" style="color:#B7B7B7;">Rp. <?=number_format($ci['harga'], 2, ",", ".");?></p>
             </div>
-            <div class="col-4">
+            <div class="col-3 col-lg-4">
               <a href="<?=base_url('ShopingChart/editchart/'.$ci['chartid'].'?id=2')?>" type="button" class="btn btn-sm" style="background-color: #EAEAEF; color: white;"><i
                   class="fas fa-minus-circle"></i></a>
               <span class="mx-2"><?=$ci['qty']?></span>

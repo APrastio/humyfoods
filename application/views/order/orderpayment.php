@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<section class="features bg-light p-5">
+<section class="features bg-light p-md-5">
     <div class="container">
 <!-- card begin -->
 <div class="card">
@@ -20,7 +20,7 @@
       </li>
     </ul>
   </div>
-  <div class="card-body ml-5 mt-4">
+  <div class="card-body ml-1 ml-md-5 mt-4">
     <?php if($order!=null):?>
       <div class="row mb-2">
         <span>Harap bayar ke salah satu nomor rekening berikut : </span>
@@ -35,22 +35,22 @@
         <span>Shoope Pay : 085711800082</span>
       </div>
       <span>Pesanan nomor OPH<?=date('dmY', $order[0]['tglorder']).$order[0]['orderid']?></span>
-      <div class="row mb-2 mr-5 border border-1">
+      <div class="row mb-2 mr-md-5 border border-1">
     <?php //var_dump($order)?>
     <?php foreach($order as $o):?>
       
-        <div class="col-1 my-3">
+        <div class="col-3 col-sm-2 col-lg-1 my-3">
           <img src="<?=base_url('assets/img/produk/').$o['poto']?>" width="50" alt="asasas">
          </div>
-        <div class="col-11 my-3">
+        <div class="col-7 col-sm-10 col-lg-11 my-3">
           <span><?=$o['namaproduk']?></span>
         </div>
       
     <?php endforeach;?>
     </div>
-    <div class="row justify-content-end">
-      <div class="col-1">Total : </div>
-      <div class="col-2">Rp. <?=$order[0]['total']?></div>
+    <div class="row">
+      <div class="col-1-lg">Total : </div>
+      <div class="col-2-lg">Rp. <?=$order[0]['total']?></div>
     </div>
     <div class='row mt-4'>
       <div class="col">

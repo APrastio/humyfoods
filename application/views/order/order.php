@@ -39,7 +39,7 @@
           <form action="<?=base_url('shoppingchart/editchart')?>" method="post">
           <?php foreach($chartitem as $ci):?>
           <div class="row mb-4">
-            <div class="col-2">
+            <div class="col-3 col-lg-2">
               <img src="<?=base_url('assets/img/produk/'.$ci['poto'])?>" width="70px" height="70px">
             </div>
             <div class="col-4">
