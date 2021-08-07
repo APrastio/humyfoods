@@ -128,14 +128,24 @@ class ShopingChart extends CI_Controller {
 			redirect('auth');
 		}
 	}
-
+//baru
 	public function editchart($id)
 	{
 		$data=$this->db->get_where('shopingchart',['chartid'=>$id])->row_array();
+		// var_dump($data['produkid']);
+		$produk=$this->db->get_where('produk',['produkid'=>$data['produkid']])->row_array();
+		// echo'<br>';
+		// var_dump($produk["stok"]);
+		// echo'<br>';
+		// var_dump($data);die;
 		if($_GET['id']==2 && $data['qty']>1){
         $this->db->set('qty', $data['qty']-1);
 		}else if($_GET['id']==1){
+			if($data['qty']<$produk["stok"]){
 			$this->db->set('qty', $data['qty']+1);
+			}else{
+			$this->db->set('qty', $produk["stok"]);
+			}
 		}else{
 			$this->db->set('qty', 1);
 		}

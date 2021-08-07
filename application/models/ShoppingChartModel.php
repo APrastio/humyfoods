@@ -19,6 +19,13 @@ class ShoppingChartModel extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
+    public function getTotalMassa($id)
+    {
+        $query = "SELECT SUM(`massatotal`) FROM chartview 
+                WHERE `userid`= '$id'";
+        return $this->db->query($query)->row_array();
+    }
+
     public function getKurir($qty,$kota)
     {
         

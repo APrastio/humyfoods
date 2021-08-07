@@ -22,6 +22,18 @@ class Order extends CI_Controller {
             $data['total'] = $this->chart->getTotal($data['user']['userid']);
 			//total qty
 			$data['qty'] = $this->chart->getTotalQty($data['user']['userid']);
+			//baru
+			//total massa
+			$data['massa'] = $this->chart->getTotalMassa($data['user']['userid']);
+			
+			$m=$data['massa']["SUM(`massatotal`)"]/1000;
+			$s=round($m);
+			$s=$s+0.3;
+			if($m<=$s){
+				$data['jneh']=round($m);
+				}else{
+				$data['jneh']=ceil($m);	
+				}				
 			//cek
 			$this->db->where('userid',$data['user']['userid']);
 			$this->db->where('status',"Belum Bayar");
@@ -143,7 +155,8 @@ class Order extends CI_Controller {
 			// $data['menunggu']=$this->db->get('order')->result_array();
 			$this->db->where('userid',$data['user']['userid']);
 			$this->db->where('status','Dikirim');
-			$this->db->or_where('status','Menungu Konfirmasi');
+			$this->db->or_where('userid',$data['user']['userid']);
+			$this->db->where('status','Menungu Konfirmasi');
 			$data['order']=$this->db->get('order')->result_array();
 			$this->load->view('templates/header',$data);
 			$this->load->view('order/statuspengiriman',$data);

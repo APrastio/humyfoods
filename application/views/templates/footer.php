@@ -51,13 +51,18 @@
   <script src='<?=base_url('assets/')?>js/select2/dist/js/select2.min.js' type='text/javascript'></script>
   <!-- custome js -->
   <script>
+  // produk detail jumlah produk dipilih
   var button = document.getElementById("clickme"),
       count = 1;
   var span= document.getElementById("value");
   button.onclick = function() {
     count += 1;
+    if(count<=<?=$produkdetail['stok']?>){
     span.innerHTML =  count;
     document.getElementById("hasil").value = count;
+    }else{
+      count=<?=$produkdetail['stok']?>
+    }
   };
   var button = document.getElementById("clickme-");
   button.onclick = function() {
@@ -72,11 +77,15 @@
   };
   </script>
   <script>
+  //order kurir 
 function val() {
   x = document.getElementById("ok").value;
   var res = x.split("|"); 
   // id = document.getElementById("ok")
   var h6= document.getElementById("hasil");
+  if(x==""){
+    x=0;
+  }
   var h62= document.getElementById("total");
   // h6.innerHTML='IDR '+parseInt(x);
   document.getElementById("idbiaya").value = res[1];

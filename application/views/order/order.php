@@ -81,7 +81,11 @@
                   <select onchange="val()" id='ok' class="custom-select-sm" required>
                     <option value="" >Pilih kurir</option>
                     <?php foreach($kurir as $k):?>
+                    <?php if($k['jenis']=='n'):?>
+                      <option value="<?=$k['harga']*$jneh?>|<?=$k['biayaid']?>"><?=strtoupper($k['kurir'])?></option>
+                      <?php else:?>
                       <option value="<?=$k['harga']?>|<?=$k['biayaid']?>"><?=strtoupper($k['kurir'])?></option>
+                      <?php endif;?>
                       <?php endforeach;?>
                     <!-- <option value="35000">JNE</option> -->
                     <!-- <option value="35000">Paxel</option> -->
