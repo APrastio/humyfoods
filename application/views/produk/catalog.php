@@ -10,19 +10,8 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container">
     <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  <i class="fas fa-filter"></i>
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <form action="<?=base_url('Customer/loadRecord')?>" method="post">
-    <input type="hidden" name="as" value="as">
-    <button class="dropdown-item" type="submit">Harga Rendah ke Tinggi</button>
-    </form>
-    <form action="<?=base_url('Customer/loadRecord')?>" method="post">
-    <input type="hidden" name="des" value="des">
-    <button class="dropdown-item" type="submit">Harga Tinggi ke Rendah</button>
-    </form>
-  </div>
+  
+  
 </div>
   <form class="form-inline" action="<?=base_url('Customer/loadRecord')?>" method="post">
     <input class="form-control mr-sm-2" type="search" name='search' value='<?= $search ?>' placeholder="Search" aria-label="Search">
@@ -38,7 +27,7 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
           <figure class="figure">
             <div class="figure-img">
-              <img src="<?=base_url('assets/img/produk/').$p['poto']?>" class="figure-img img-fluid">
+              <img src="<?=base_url('assets/img/produk/').$p['poto']?>" class="figure-img img-fluid" loading=”lazy”>
               <a href="<?=base_url('produk/produkdetail/'. $p['produkid'])?>" class="d-flex justify-content-center">
                 <img src="<?=base_url('assets/img/')?>detail.png" class="align-self-center">
               </a>

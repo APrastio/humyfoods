@@ -26,13 +26,16 @@
         <span>Harap bayar ke salah satu nomor rekening berikut : </span>
       </div>
       <div class="row mb-2">
-        <span> Bank Mandiri : 15600098615778</span>
+        <span> BNI syariah 0649438833 an Hesti Juwitasari (kode bank 427)</span>
       </div>
       <div class="row mb-2">
-        <span> OVO : 085711800082</span>
+        <span> BCA syariah 0280 008822 an Furkon (kode bank 536)</span>
+      </div>
+      <div class="row mb-2">
+        <span> OVO : 085717550045</span>
       </div>
       <div class="row mb-5">
-        <span>Shoope Pay : 085711800082</span>
+        <span>Shoope Pay : humyfoods</span>
       </div>
       <span>Pesanan nomor OPH<?=date('dmY', $order[0]['tglorder']).$order[0]['orderid']?></span>
       <div class="row mb-2 mr-md-5 border border-1">
