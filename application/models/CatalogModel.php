@@ -44,4 +44,10 @@ Class CatalogModel extends CI_Model {
  
     return $result[0]['allcount'];
   }
+  public function populer(){
+
+    $query = "SELECT * FROM `produk` INNER JOIN `populer`
+    ON `produk`.`produkid` = `populer`.`produkid`";
+        return $this->db->query($query)->result_array();
+  }
 }

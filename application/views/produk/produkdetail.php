@@ -105,7 +105,7 @@
       </div>
 
       <div class="row">
-        <?php foreach ($produk as $p):?>
+        <?php $i=0;foreach ($produk as $p):?>
         <div class="col-sm-4 ">
           <figure class="figure">
           <div class="figure-img">
@@ -127,7 +127,7 @@
             </figcaption>
           </figure>
         </div>
-      <?php endforeach;?>
+      <?php $i++;if($i==3){break;}endforeach;?>
 
         
       </div>
