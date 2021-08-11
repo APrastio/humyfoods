@@ -31,6 +31,9 @@ class Order extends CI_Controller {
 			$s=$s+0.3;
 			if($m<=$s){
 				$data['jneh']=round($m);
+				if($data['jneh']==0){
+					$data['jneh']=1;
+				}
 				}else{
 				$data['jneh']=ceil($m);	
 				}				
